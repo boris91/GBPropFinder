@@ -1,0 +1,3 @@
+rootProject.name = 'mios'
+
+include ':app'

@@ -1,30 +1,19 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+import React from 'react';
+import ReactNative from 'react-native';
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-
-export default class mios extends Component {
+export default class mios extends React.Component {
 	render() {
 		return (
-			<View style={styles.container}>
-				<Text style={styles.welcome}>
-					hi bitch
-				</Text>
-			</View>
+			<ReactNative.View style={styles.container}>
+				<ReactNative.Text style={styles.welcome}>
+					mios
+				</ReactNative.Text>
+			</ReactNative.View>
 		);
 	}
 }
 
-const styles = StyleSheet.create({
+const styles = ReactNative.StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: 'center',
@@ -35,12 +24,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		textAlign: 'center',
 		margin: 10,
-	},
-	instructions: {
-		textAlign: 'center',
-		color: '#333333',
-		marginBottom: 5,
 	}
 });
 
-AppRegistry.registerComponent('mios', () => mios);
+ReactNative.AppRegistry.registerComponent('mios', () => mios);

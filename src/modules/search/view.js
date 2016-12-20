@@ -9,6 +9,8 @@ import {
 	Button
 } from '../../components/all';
 
+import SearchResultsView from './components/results/view';
+
 import {
 	_container_,
 	_description_,
@@ -79,12 +81,15 @@ export default class SearchView extends React.Component {
 			return <Spinner size="large" color="#909090"/>;
 		} else if (error) {
 			return <Text>{error}</Text>;
-		} else if (data) {
-			const { pagesCount, resultsCount, results } = data;
-			return <Text>{`${pagesCount} pages with ${resultsCount} results found.`}</Text>;
-		}
+		} else if (data && 0 < data.resultsCount) {
+			this.props.navigator.push({
+				title: 'Results',
+				component: SearchResultsView,
+				passProps: data
+			});
+		};
 
-		return <Text>{this.props.noDataMessage}</Text>;
+		return null;
 	}
 
 	fetchByPlaceName(page) {

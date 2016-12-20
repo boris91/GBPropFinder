@@ -1,4 +1,5 @@
 import {
+	ActivityIndicator,
 	View,
 	Text,
 	TextInput,
@@ -8,6 +9,7 @@ import {
 import Button from './button/view';
 
 export {
+	ActivityIndicator as Spinner,
 	View,
 	Text,
 	TextInput,

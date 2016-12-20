@@ -1,4 +1,4 @@
-export const touchableHighlight = {
+export const _touchableHighlight_ = {
 	height: 36,
 	flex: 1,
 	flexDirection: 'row',
@@ -11,7 +11,7 @@ export const touchableHighlight = {
 	justifyContent: 'center',
 };
 
-export const text = {
+export const _text_ = {
 	fontSize: 18,
 	color: '#c8c8c8',
 	alignSelf: 'center'

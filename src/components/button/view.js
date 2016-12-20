@@ -5,27 +5,29 @@ import {
 } from 'react-native';
 
 import {
-	touchableHighlight,
-	text
+	_touchableHighlight_,
+	_text_
 } from './styles';
 
 /**
  *
- * @param props = { color, backgroundColor, style, text, onPress }
+ * @param props = { color, backgroundColor, style, text, disabled, onPress }
  * @returns {XML}
  */
 export default (props = {}) => {
-	const touchableHighlightStyle = {
-		...touchableHighlight,
-		...props.style
+	const { style, color, text, disabled, onPress } = props;
+	const thDisabled = 'boolean' === typeof disabled ? disabled : false;
+	const _touchableHighlightStyle_ = {
+		..._touchableHighlight_,
+		...style
 	};
-	const textStyle = {
-		...text,
-		color: (props.style && props.style.color) || props.color || text.color
+	const _textStyle_ = {
+		..._text_,
+		color: (style && style.color) || color || _text_.color
 	};
 	return (
-		<TouchableHighlight style={touchableHighlightStyle} onPress={props.onPress}>
-			<Text style={textStyle}>{props.text || ''}</Text>
+		<TouchableHighlight disabled={thDisabled} style={_touchableHighlightStyle_} onPress={onPress}>
+			<Text style={_textStyle_}>{text || ''}</Text>
 		</TouchableHighlight>
 	);
 };

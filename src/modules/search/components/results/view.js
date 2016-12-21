@@ -5,12 +5,19 @@ import {
 	TouchLight,
 	View,
 	Spinner,
+	Image,
 	Text
 } from '../../../../components/all';
 
 import {
 	_container_,
-	_error_
+	_error_,
+	_separator_,
+	_result_,
+	_resultPrice_,
+	_resultText_,
+	_resultThumb_,
+	_resultTitle_
 } from './styles';
 
 export default class SearchResultsView extends React.Component {
@@ -67,11 +74,19 @@ export default class SearchResultsView extends React.Component {
 	}
 
 	renderRow(data, sectionId, rowId) {
-		const { title } = data;
+		const { img_url: uri, price_formatted: price, title } = data;
+
 		return (
-			<TouchLight underlayColor="#dddddd">
+			<TouchLight onPress={() => this.onRowPress(data)} underlayColor="#dddddd">
 				<View>
-					<Text>{title}</Text>
+					<View style={_result_}>
+						<Image style={_resultThumb_} source={{ uri }}/>
+						<View style={_resultText_}>
+							<Text style={_resultPrice_}>{price}</Text>
+							<Text style={_resultTitle_} numberOfLines={1}>{title}</Text>
+						</View>
+					</View>
+					<View style={_separator_}/>
 				</View>
 			</TouchLight>
 		);
@@ -110,5 +125,9 @@ export default class SearchResultsView extends React.Component {
 			results: null,
 			error: this.props.requestFailMessage
 		});
+	}
+
+	onRowPress(data) {
+		//console.log(data);
 	}
 };

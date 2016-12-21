@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-	Spinner,
 	View,
 	Text,
 	TextInput,
@@ -18,6 +17,11 @@ import {
 	_searchInput_,
 	_houseImage_
 } from './styles';
+
+const Param = {
+	PLACE: 'place_name',
+	GPS: 'centre_point'
+};
 
 export default class SearchView extends React.Component {
 	static defaultProps = {
@@ -36,14 +40,10 @@ export default class SearchView extends React.Component {
 		super(props);
 
 		this.state = {
-			query: '',
-			pending: false,
-			error: '',
-			data: null
+			query: ''
 		};
 
-		this.onDataFetchSucceed = this.onDataFetchSucceed.bind(this);
-		this.onDataFetchFailed = this.onDataFetchFailed.bind(this);
+		this.gps = navigator.geolocation;
 		this.onQueryChange = this.onQueryChange.bind(this);
 		this.onGoPress = this.onGoPress.bind(this);
 		this.onLocationPress = this.onLocationPress.bind(this);
@@ -51,8 +51,7 @@ export default class SearchView extends React.Component {
 
 	render() {
 		const { title, description, queryPlaceholder, imageSrc } = this.props;
-		const { query, pending } = this.state;
-		const goButtonDisabled = pending || !query;
+		const { query, error } = this.state;
 
 		return (
 			<View style={_container_}>
@@ -60,101 +59,47 @@ export default class SearchView extends React.Component {
 				<Text style={_description_}>{description}</Text>
 				<View style={_flowRight_}>
 					<TextInput style={_searchInput_} placeholder={queryPlaceholder} value={query} onChange={this.onQueryChange}/>
-					<Button text="Go" disabled={goButtonDisabled} onPress={this.onGoPress}/>
+					<Button text="Go" onPress={this.onGoPress}/>
 				</View>
 				<View style={_flowRight_}>
-					<Button text="Location" disabled={pending} onPress={this.onLocationPress}/>
+					<Button text="Location" onPress={this.onLocationPress}/>
 				</View>
 				<Image style={_houseImage_} source={imageSrc}/>
-				<View>
-					{this.renderFetchedData()}
-				</View>
+				{error ? <Text>{error}</Text> : null}
 			</View>
 		);
 	}
 
-	renderFetchedData() {
-		const { pending, error, data } = this.state;
-		//console.log(this.state);
-
-		if (pending) {
-			return <Spinner size="large" color="#909090"/>;
-		} else if (error) {
-			return <Text>{error}</Text>;
-		} else if (data && 0 < data.resultsCount) {
-			this.props.navigator.push({
-				title: 'Results',
-				component: SearchResultsView,
-				passProps: data
-			});
-		};
-
-		return null;
+	navToResults(param, query) {
+		this.props.navigator.push({
+			title: 'Results',
+			component: SearchResultsView,
+			passProps: {
+				...this.props,
+				param,
+				query
+			}
+		});
 	}
 
-	fetchByPlaceName(page) {
-		this.fetchData('place_name', this.state.query, page);
+	navToResultsByPlace() {
+		this.navToResults(Param.PLACE, this.state.query);
 	}
 
-	fetchByGpsLocation(page) {
-		navigator.geolocation.getCurrentPosition(
-			gpsPosition => this.fetchByGpsPosition(gpsPosition, page),
-			error => this.setState({ error: this.props.invalidGpsLocation })
-		);
+	navToResultsByGps(query = this.state.query) {
+		this.navToResults(Param.GPS, query);
 	}
 
-	fetchByGpsPosition(gpsPosition, page) {
-		const { coords: { latitude, longitude } } = gpsPosition;
-		const query = `${latitude},${longitude}`;
-		this.setState({ query });
-		this.fetchData('centre_point', query, page);
-	}
-
-	fetchData(key, value, page = 1) {
-		const url = `${this.props.apiUrl}&${key}=${encodeURIComponent(value)}&page=${page}`;
-		//console.log(url);
-		return fetch(url)
-			.then(response => response.json())
-			.then(({request, response}) => this.onDataFetchSucceed(response))
-			.catch(this.onDataFetchFailed);
-	}
-
-	convertQueryToGpsPosition() {
+	isQueryGpsLocation() {
 		const gpsPosition = this.state.query.split(',');
 		if (2 === gpsPosition.length) {
 			let latitude = parseFloat(gpsPosition[0]);
 			let longitude = parseFloat(gpsPosition[1]);
 			if (!isNaN(latitude) && !isNaN(longitude)) {
-				return { coords: { latitude, longitude } };
+				return true;
 			}
 		}
-		return null;
-	}
-
-	onDataFetchSucceed(response) {
-		const { application_response_code, total_pages, page, total_results, listings } = response;
-		let error = this.props.invalidQueryMessage;
-		let data = null;
-
-		if ('1' === application_response_code.substr(0, 1)) {
-			error = '';
-			data = {
-				pagesCount: total_pages + 1,
-				page,
-				resultsCount: total_results,
-				results: listings
-			};
-		}
-
-		this.setState({ pending: false, error, data });
-	}
-
-	onDataFetchFailed(error) {
-		this.setState({
-			pending: false,
-			data: null,
-			error: this.props.requestFailMessage
-		});
+		return false;
 	}
 
 	onQueryChange(event) {
@@ -162,17 +107,20 @@ export default class SearchView extends React.Component {
 	}
 
 	onGoPress() {
-		this.setState({ pending: true });
-		const gpsPosition = this.convertQueryToGpsPosition();
-		if (gpsPosition) {
-			this.fetchByGpsPosition(gpsPosition);
+		if (this.isQueryGpsLocation()) {
+			this.navToResultsByGps();
 		} else {
-			this.fetchByPlaceName();
+			this.navToResultsByPlace();
 		}
 	}
 
 	onLocationPress() {
-		this.setState({ pending: true });
-		this.fetchByGpsLocation();
+		this.gps.getCurrentPosition(
+			position => {
+				const query = `${position.coords.latitude},${position.coords.longitude}`;
+				this.navToResultsByGps(query);
+			},
+			error => this.setState({ error: this.props.invalidGpsLocation })
+		);
 	}
 };

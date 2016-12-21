@@ -1,14 +1,16 @@
 export const _container_ = {
+	flex: 1,
 	padding: 30,
 	marginTop: 65,
-	alignItems: 'center'
+	alignItems: 'center',
+	backgroundColor: '#343434'
 };
 
 export const _description_ = {
 	marginBottom: 20,
 	fontSize: 18,
 	textAlign: 'center',
-	color: '#656565'
+	color: '#939393'
 };
 
 export const _flowRight_ = {
@@ -24,9 +26,10 @@ export const _searchInput_ = {
 	flex: 4,
 	fontSize: 18,
 	borderWidth: 1,
-	borderColor: '#565656',
+	borderColor: '#626262',
 	borderRadius: 8,
-	color: '#323232'
+	color: '#eea114',
+	backgroundColor: '#464141'
 };
 
 export const _houseImage_ = {

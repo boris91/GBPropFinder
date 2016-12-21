@@ -9,9 +9,12 @@ import {
 	Text
 } from '../../../../components/all';
 
+import SearchResultDetailsView from '../result-details/view';
+
 import {
 	_container_,
 	_error_,
+	_spinner_,
 	_separator_,
 	_result_,
 	_resultPrice_,
@@ -62,7 +65,7 @@ export default class SearchResultsView extends React.Component {
 		} else if (error) {
 			return <Text style={_error_}>{error}</Text>;
 		} else if (pending) {
-			return <Spinner size="large" color="#909090"/>;
+			return <Spinner style={_spinner_} size="large" color="#909090"/>;
 		}
 	}
 
@@ -128,6 +131,10 @@ export default class SearchResultsView extends React.Component {
 	}
 
 	onRowPress(data) {
-		//console.log(data);
+		this.props.navigator.push({
+			title: 'Property details',
+			component: SearchResultDetailsView,
+			passProps: data
+		});
 	}
 };

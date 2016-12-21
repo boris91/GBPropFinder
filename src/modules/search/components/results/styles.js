@@ -1,6 +1,7 @@
 export const _container_ = {
-	marginTop: 80,
-	marginHorizontal: 20
+	flex: 1,
+	paddingTop: 65,
+	backgroundColor: '#343434'
 };
 
 export const _error_ = {
@@ -8,9 +9,14 @@ export const _error_ = {
 	fontSize: 25
 };
 
+export const _spinner_ = {
+	flex: 1,
+	alignSelf: 'center'
+};
+
 export const _separator_ = {
 	height: 1,
-	backgroundColor: '#dddddd'
+	backgroundColor: '#6d6d6d'
 };
 
 export const _result_ = {
@@ -31,10 +37,10 @@ export const _resultText_ = {
 export const _resultPrice_ = {
 	fontSize: 25,
 	fontWeight: 'bold',
-	color: '#48BBEC'
+	color: '#eaae4e'
 };
 
 export const _resultTitle_ = {
 	fontSize: 20,
-	color: '#656565'
+	color: '#b2b2b2'
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-	View,
+	Div,
 	Text,
 	TextInput,
 	Image,
@@ -54,19 +54,19 @@ export default class SearchView extends React.Component {
 		const { query, error } = this.state;
 
 		return (
-			<View style={_container_}>
+			<Div style={_container_}>
 				<Text style={_description_}>{title}</Text>
 				<Text style={_description_}>{description}</Text>
-				<View style={_flowRight_}>
+				<Div style={_flowRight_}>
 					<TextInput style={_searchInput_} placeholder={queryPlaceholder} value={query} onChange={this.onQueryChange}/>
 					<Button text="Go" onPress={this.onGoPress}/>
-				</View>
-				<View style={_flowRight_}>
+				</Div>
+				<Div style={_flowRight_}>
 					<Button text="Location" onPress={this.onLocationPress}/>
-				</View>
+				</Div>
 				<Image style={_houseImage_} source={imageSrc}/>
 				{error ? <Text>{error}</Text> : null}
-			</View>
+			</Div>
 		);
 	}
 

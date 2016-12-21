@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-	TouchableHighlight,
+	TouchLight,
 	Text
-} from 'react-native';
+} from '../all';
 
 import {
 	_touchableHighlight_,
@@ -26,8 +26,8 @@ export default (props = {}) => {
 		color: (style && style.color) || color || _text_.color
 	};
 	return (
-		<TouchableHighlight disabled={thDisabled} style={_touchableHighlightStyle_} onPress={onPress}>
+		<TouchLight disabled={thDisabled} style={_touchableHighlightStyle_} onPress={onPress}>
 			<Text style={_textStyle_}>{text || ''}</Text>
-		</TouchableHighlight>
+		</TouchLight>
 	);
 };

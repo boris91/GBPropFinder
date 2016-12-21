@@ -1,10 +1,7 @@
 import React from 'react';
 
 import {
-	List,
-	TouchLight,
-	View,
-	Spinner,
+	Div,
 	Image,
 	Text
 } from '../../../../components/all';
@@ -28,19 +25,19 @@ export default SearchResultDetailsView = props => {
 	} = convertResult(props);
 
 	return (
-		<View style={_container_}>
+		<Div style={_container_}>
 			<Image style={_photo_} source={{ uri }}/>
-			<View style={_headInfo_}>
+			<Div style={_headInfo_}>
 				<Text style={_price_}>{price}</Text>
 				<Text style={_title_}>{title}</Text>
-			</View>
+			</Div>
 			<Text style={_attrs_}>
 				{type}
 				{bedrooms}
 				{bathrooms}
 			</Text>
-			<View style={_separator_}/>
+			<Div style={_separator_}/>
 			<Text style={_summary_}>{summary}</Text>
-		</View>
+		</Div>
 	);
 };

@@ -3,7 +3,7 @@ import React from 'react';
 import {
 	List,
 	TouchLight,
-	View,
+	Div,
 	Spinner,
 	Image,
 	Text
@@ -51,9 +51,9 @@ export default class SearchResultsView extends React.Component {
 
 	render() {
 		return (
-			<View style={_container_}>
+			<Div style={_container_}>
 				{this.renderContent()}
-			</View>
+			</Div>
 		);
 	}
 
@@ -81,16 +81,16 @@ export default class SearchResultsView extends React.Component {
 
 		return (
 			<TouchLight onPress={() => this.onRowPress(data)} underlayColor="#dddddd">
-				<View>
-					<View style={_result_}>
+				<Div>
+					<Div style={_result_}>
 						<Image style={_resultThumb_} source={{ uri }}/>
-						<View style={_resultText_}>
+						<Div style={_resultText_}>
 							<Text style={_resultPrice_}>{price}</Text>
 							<Text style={_resultTitle_} numberOfLines={1}>{title}</Text>
-						</View>
-					</View>
-					<View style={_separator_}/>
-				</View>
+						</Div>
+					</Div>
+					<Div style={_separator_}/>
+				</Div>
 			</TouchLight>
 		);
 	}

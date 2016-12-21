@@ -13,7 +13,7 @@ import Button from './button/view';
 export {
 	ActivityIndicator as Spinner,
 	ListView as List,
-	View,
+	View as Div,
 	Text,
 	TextInput,
 	TouchableHighlight as TouchLight,

@@ -1,43 +1,43 @@
-export const _container_ = {
+export const container = {
 	flex: 1,
 	paddingTop: 65,
 	backgroundColor: '#343434'
 };
 
-export const _photo_ = {
+export const photo = {
 	width: 400,
 	height: 300
 };
 
-export const _headInfo_ = {
+export const headInfo = {
 	backgroundColor: '#5b5b5b'
 };
 
-export const _title_ = {
+export const title = {
 	fontSize: 22,
 	margin: 5,
 	color: '#eaae4e'
 };
 
-export const _price_ = {
+export const price = {
 	fontSize: 25,
 	fontWeight: 'bold',
 	margin: 5,
 	color: '#6ad9ec'
 };
 
-export const _attrs_ = {
+export const attrs = {
 	fontSize: 20,
 	margin: 5,
 	color: '#9fb65b'
 };
 
-export const _separator_ = {
+export const separator = {
 	height: 1,
 	backgroundColor: '#6d6d6d'
 };
 
-export const _summary_ = {
+export const summary = {
 	fontSize: 18,
 	margin: 5,
 	color: '#a4a385'

@@ -1,29 +1,17 @@
 import React from 'react';
 
-import {
-	Div,
-	Text,
-	TextInput,
-	Image,
-	Button
-} from '../../components/all';
+import { Btn, Div, Img, Input, Txt } from '../../components/all';
 
-import SearchResultsView from './components/results/view';
+import SearchResults from './components/results/view';
 
-import {
-	_container_,
-	_description_,
-	_flowRight_,
-	_searchInput_,
-	_houseImage_
-} from './styles';
+import * as _ from './styles';
 
 const Param = {
 	PLACE: 'place_name',
 	GPS: 'centre_point'
 };
 
-export default class SearchView extends React.Component {
+export default class Search extends React.Component {
 	static defaultProps = {
 		title: 'Search for houses to buy!',
 		description: 'Seek by place name, post code or current location.',
@@ -54,18 +42,18 @@ export default class SearchView extends React.Component {
 		const { query, error } = this.state;
 
 		return (
-			<Div style={_container_}>
-				<Text style={_description_}>{title}</Text>
-				<Text style={_description_}>{description}</Text>
-				<Div style={_flowRight_}>
-					<TextInput style={_searchInput_} placeholder={queryPlaceholder} value={query} onChange={this.onQueryChange}/>
-					<Button text="Go" onPress={this.onGoPress}/>
+			<Div style={_.container}>
+				<Txt style={_.description}>{title}</Txt>
+				<Txt style={_.description}>{description}</Txt>
+				<Div style={_.flowRight}>
+					<Input style={_.searchInput} placeholder={queryPlaceholder} value={query} onChange={this.onQueryChange}/>
+					<Btn style={_.button} text="Go" onPress={this.onGoPress}/>
 				</Div>
-				<Div style={_flowRight_}>
-					<Button text="Location" onPress={this.onLocationPress}/>
+				<Div style={_.flowRight}>
+					<Btn style={_.button} text="Location" onPress={this.onLocationPress}/>
 				</Div>
-				<Image style={_houseImage_} source={imageSrc}/>
-				{error ? <Text>{error}</Text> : null}
+				<Img style={_.houseImage} source={imageSrc}/>
+				{error ? <Txt>{error}</Txt> : null}
 			</Div>
 		);
 	}
@@ -73,7 +61,7 @@ export default class SearchView extends React.Component {
 	navToResults(param, query) {
 		this.props.navigator.push({
 			title: 'Results',
-			component: SearchResultsView,
+			component: SearchResults,
 			passProps: {
 				...this.props,
 				param,

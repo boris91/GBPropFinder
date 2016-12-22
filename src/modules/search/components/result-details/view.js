@@ -1,43 +1,30 @@
 import React from 'react';
 
-import {
-	Div,
-	Image,
-	Text
-} from '../../../../components/all';
+import { Div, Img, Txt } from '../../../../components/all';
 
 import convertResult from './converter';
 
-import {
-	_container_,
-	_photo_,
-	_headInfo_,
-	_title_,
-	_price_,
-	_attrs_,
-	_separator_,
-	_summary_
-} from './styles';
+import * as _ from './styles';
 
-export default SearchResultDetailsView = props => {
+export default SearchResultDetails = props => {
 	const {
 		type, title, uri, summary, price, bedrooms, bathrooms
 	} = convertResult(props);
 
 	return (
-		<Div style={_container_}>
-			<Image style={_photo_} source={{ uri }}/>
-			<Div style={_headInfo_}>
-				<Text style={_price_}>{price}</Text>
-				<Text style={_title_}>{title}</Text>
+		<Div style={_.container}>
+			<Img style={_.photo} source={{ uri }}/>
+			<Div style={_.headInfo}>
+				<Txt style={_.price}>{price}</Txt>
+				<Txt style={_.title}>{title}</Txt>
 			</Div>
-			<Text style={_attrs_}>
+			<Txt style={_.attrs}>
 				{type}
 				{bedrooms}
 				{bathrooms}
-			</Text>
-			<Div style={_separator_}/>
-			<Text style={_summary_}>{summary}</Text>
+			</Txt>
+			<Div style={_.separator}/>
+			<Txt style={_.summary}>{summary}</Txt>
 		</Div>
 	);
 };

@@ -1,46 +1,46 @@
-export const _container_ = {
+export const container = {
 	flex: 1,
 	paddingTop: 65,
 	backgroundColor: '#343434'
 };
 
-export const _error_ = {
+export const error = {
 	color: 'red',
 	fontSize: 25
 };
 
-export const _spinner_ = {
+export const spinner = {
 	flex: 1,
 	alignSelf: 'center'
 };
 
-export const _separator_ = {
+export const separator = {
 	height: 1,
 	backgroundColor: '#6d6d6d'
 };
 
-export const _result_ = {
+export const result = {
 	flexDirection: 'row',
 	padding: 10
 };
 
-export const _resultThumb_ = {
+export const resultThumb = {
 	width: 80,
 	height: 80,
 	marginRight: 10
 };
 
-export const _resultText_ = {
+export const resultText = {
 	flex: 1
 };
 
-export const _resultPrice_ = {
+export const resultPrice = {
 	fontSize: 25,
 	fontWeight: 'bold',
 	color: '#eaae4e'
 };
 
-export const _resultTitle_ = {
+export const resultTitle = {
 	fontSize: 20,
 	color: '#b2b2b2'
 };

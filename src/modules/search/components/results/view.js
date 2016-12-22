@@ -1,29 +1,12 @@
 import React from 'react';
 
-import {
-	List,
-	TouchLight,
-	Div,
-	Spinner,
-	Image,
-	Text
-} from '../../../../components/all';
+import { List, Touch, Div, Spinner, Img, Txt } from '../../../../components/all';
 
-import SearchResultDetailsView from '../result-details/view';
+import SearchResultDetails from '../result-details/view';
 
-import {
-	_container_,
-	_error_,
-	_spinner_,
-	_separator_,
-	_result_,
-	_resultPrice_,
-	_resultText_,
-	_resultThumb_,
-	_resultTitle_
-} from './styles';
+import * as _ from './styles';
 
-export default class SearchResultsView extends React.Component {
+export default class SearchResults extends React.Component {
 	static defaultProps = {
 		param: '',
 		query: ''
@@ -51,7 +34,7 @@ export default class SearchResultsView extends React.Component {
 
 	render() {
 		return (
-			<Div style={_container_}>
+			<Div style={_.container}>
 				{this.renderContent()}
 			</Div>
 		);
@@ -63,9 +46,9 @@ export default class SearchResultsView extends React.Component {
 		if (results) {
 			return this.renderResults(results);
 		} else if (error) {
-			return <Text style={_error_}>{error}</Text>;
+			return <Txt style={_.error}>{error}</Txt>;
 		} else if (pending) {
-			return <Spinner style={_spinner_} size="large" color="#909090"/>;
+			return <Spinner style={_.spinner} size="large" color="#909090"/>;
 		}
 	}
 
@@ -80,18 +63,18 @@ export default class SearchResultsView extends React.Component {
 		const { img_url: uri, price_formatted: price, title } = data;
 
 		return (
-			<TouchLight onPress={() => this.onRowPress(data)} underlayColor="#dddddd">
+			<Touch onPress={() => this.onRowPress(data)} underlayColor="#dddddd">
 				<Div>
-					<Div style={_result_}>
-						<Image style={_resultThumb_} source={{ uri }}/>
-						<Div style={_resultText_}>
-							<Text style={_resultPrice_}>{price}</Text>
-							<Text style={_resultTitle_} numberOfLines={1}>{title}</Text>
+					<Div style={_.result}>
+						<Img style={_.resultThumb} source={{ uri }}/>
+						<Div style={_.resultText}>
+							<Txt style={_.resultPrice}>{price}</Txt>
+							<Txt style={_.resultTitle} numberOfLines={1}>{title}</Txt>
 						</Div>
 					</Div>
-					<Div style={_separator_}/>
+					<Div style={_.separator}/>
 				</Div>
-			</TouchLight>
+			</Touch>
 		);
 	}
 
@@ -133,7 +116,7 @@ export default class SearchResultsView extends React.Component {
 	onRowPress(data) {
 		this.props.navigator.push({
 			title: 'Property details',
-			component: SearchResultDetailsView,
+			component: SearchResultDetails,
 			passProps: data
 		});
 	}

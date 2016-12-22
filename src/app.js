@@ -1,15 +1,12 @@
 import React from 'react';
-import {
-	NavigatorIOS
-} from 'react-native';
 
-import { initialRoute } from './routes';
-import { navigator } from './styles';
+import { Nav } from './components/all';
+import { routes, routeMapper, renderScene } from './routes';
+import * as _ from './styles';
 
 export default props => (
-	<NavigatorIOS
-		style={navigator}
-		initialRoute={initialRoute}
-		renderScene={() => <initialRoute.component/>}
-	/>
+	<Nav style={_.navigator}
+		initialRoute={routes[0]}
+		initialRouteStack={routes}
+		renderScene={renderScene}/>
 );

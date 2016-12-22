@@ -1,23 +1,24 @@
 import {
 	ActivityIndicator,
+	Image,
 	ListView,
-	View,
+	NavigatorIOS,
 	Text,
 	TextInput,
 	TouchableHighlight,
-	Image
+	View
 } from 'react-native';
 
-import Button from './button/view';
+import Btn from './btn/view';
 
 export {
 	ActivityIndicator as Spinner,
+	Btn,
+	Image as Img,
 	ListView as List,
-	View as Div,
-	Text,
-	TextInput,
-	TouchableHighlight as TouchLight,
-	Image,
-
-	Button
+	NavigatorIOS as Nav,
+	Text as Txt,
+	TextInput as Input,
+	TouchableHighlight as Touch,
+	View as Div
 };

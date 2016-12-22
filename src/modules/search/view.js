@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Btn, Div, Img, Input, Txt } from '../../components/all';
+import { Btn, Div, Img, Input, Map, Txt } from '../../components/all';
 
 import SearchResults from './components/results/view';
 
@@ -13,15 +13,20 @@ const Param = {
 
 export default class Search extends React.Component {
 	static defaultProps = {
-		title: 'Search for houses to buy!',
-		description: 'Seek by place name, post code or current location.',
+		title: 'Search for property (by place name, post code or location).',
 		queryPlaceholder: 'Place/postcode',
 		imageSrc: require('./images/house.png'),
 		apiUrl: 'http://api.nestoria.co.uk/api?encoding=json&action=search_listings',
 		invalidQueryMessage: 'Query\'s invalid. Please, enter the correct one.',
 		invalidGpsLocation: 'GPS location couldn\'t be obtained properly. Try again later.',
 		requestFailMessage: 'Reqeust failed. Try again later.',
-		noDataMessage: 'No data provided. Try again later.'
+		noDataMessage: 'No data provided. Try again later.',
+		mapInitialRegion: {
+			latitude: 51.5074,
+			longitude: 0.1278,
+			latitudeDelta: 0,
+			longitudeDelta: 0
+		}
 	};
 
 	constructor(props) {
@@ -38,13 +43,13 @@ export default class Search extends React.Component {
 	}
 
 	render() {
-		const { title, description, queryPlaceholder, imageSrc } = this.props;
+		const { title, mapInitialRegion, queryPlaceholder, imageSrc } = this.props;
 		const { query, error } = this.state;
 
 		return (
 			<Div style={_.container}>
-				<Txt style={_.description}>{title}</Txt>
-				<Txt style={_.description}>{description}</Txt>
+				<Txt style={_.title}>{title}</Txt>
+				<Map style={_.map} initialRegion={mapInitialRegion}/>
 				<Div style={_.flowRight}>
 					<Input style={_.searchInput} placeholder={queryPlaceholder} value={query} onChange={this.onQueryChange}/>
 					<Btn style={_.button} text="Go" onPress={this.onGoPress}/>

@@ -1,13 +1,13 @@
 export const container = {
 	flex: 1,
 	padding: 30,
-	marginTop: 65,
+	marginTop: 40,
 	alignItems: 'center',
 	backgroundColor: '#343434'
 };
 
-export const description = {
-	marginBottom: 20,
+export const title = {
+	marginBottom: 10,
 	fontSize: 18,
 	textAlign: 'center',
 	color: '#939393'
@@ -17,6 +17,13 @@ export const flowRight = {
 	flexDirection: 'row',
 	alignItems: 'center',
 	alignSelf: 'stretch'
+};
+
+export const map = {
+	width: 315,
+	height: 200,
+	marginBottom: 10,
+	borderRadius: 20
 };
 
 export const searchInput = {

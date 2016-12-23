@@ -8,9 +8,10 @@ import {
 	TouchableHighlight,
 	View
 } from 'react-native';
+import Map from 'react-native-maps';
 
 import Btn from './btn/view';
-import Map from 'react-native-maps';
+import Pwd from './pwd/view';
 
 export {
 	ActivityIndicator as Spinner,
@@ -19,6 +20,7 @@ export {
 	ListView as List,
 	Map,
 	NavigatorIOS as Nav,
+	Pwd,
 	Text as Txt,
 	TextInput as Input,
 	TouchableHighlight as Touch,

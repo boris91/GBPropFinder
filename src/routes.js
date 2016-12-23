@@ -1,5 +1,5 @@
 import React from 'react';
-import Search from './modules/search/view';
+import Search from './containers/search/view';
 
 export const routes = [{
 	index: 0,

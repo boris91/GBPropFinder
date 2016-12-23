@@ -6,7 +6,8 @@ export const container = {
 
 export const error = {
 	color: 'red',
-	fontSize: 25
+	fontSize: 25,
+	margin: 20
 };
 
 export const spinner = {
@@ -43,4 +44,10 @@ export const resultPrice = {
 export const resultTitle = {
 	fontSize: 20,
 	color: '#b2b2b2'
+};
+
+export const message = {
+	color: '#eaab18',
+	fontSize: 20,
+	margin: 20
 };

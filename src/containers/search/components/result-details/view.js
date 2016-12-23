@@ -6,7 +6,7 @@ import convertResult from './converter';
 
 import * as _ from './styles';
 
-export default SearchResultDetails = props => {
+const SearchResultDetails = props => {
 	const {
 		type, title, uri, summary, price, bedrooms, bathrooms
 	} = convertResult(props);
@@ -28,3 +28,10 @@ export default SearchResultDetails = props => {
 		</Div>
 	);
 };
+
+SearchResultDetails.route = {
+	title: 'Authentication',
+	component: SearchResultDetails
+};
+
+export default SearchResultDetails;

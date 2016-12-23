@@ -5,6 +5,12 @@ import { Btn, Div, Fld, Pwd, Spinner, Txt } from '../../components/all';
 import * as _ from './styles';
 
 export default class Login extends React.Component {
+	static route = {
+		title: 'Login',
+		component: Login
+	};
+
+
 	static defaultProps = {
 		onSuccess() { console.log('onSuccess'); },
 		onError() { console.log('onError'); },

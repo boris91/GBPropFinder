@@ -7,7 +7,13 @@ import SearchResultDetails from '../result-details/view';
 import * as _ from './styles';
 
 export default class SearchResults extends React.Component {
+	static route = {
+		title: 'Results',
+		component: SearchResults
+	};
+
 	static defaultProps = {
+		noResultsMessage: 'No results found for your query.',
 		param: '',
 		query: ''
 	};
@@ -41,10 +47,15 @@ export default class SearchResults extends React.Component {
 	}
 
 	renderContent() {
+		const { noResultsMessage } = this.props;
 		const { pending, error, results } = this.state;
 
 		if (results) {
-			return this.renderResults(results);
+			if (0 === results.length) {
+				return <Txt style={_.message}>{noResultsMessage}</Txt>;
+			} else {
+				return this.renderResults(results);
+			}
 		} else if (error) {
 			return <Txt style={_.error}>{error}</Txt>;
 		} else if (pending) {
@@ -113,11 +124,10 @@ export default class SearchResults extends React.Component {
 		});
 	}
 
-	onRowPress(data) {
+	onRowPress(passProps) {
 		this.props.navigator.push({
-			title: 'Property details',
-			component: SearchResultDetails,
-			passProps: data
+			...SearchResultDetails.route,
+			passProps
 		});
 	}
 };

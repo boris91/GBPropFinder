@@ -7,6 +7,11 @@ import Search from '../search/view';
 import * as _ from './styles';
 
 export default class Auth extends React.Component {
+	static route = {
+		title: 'Authentication',
+		component: Auth
+	};
+
 	static defaultProps = {
 		title: 'Authenticate to the application',
 		loginBtnText: 'Log In'
@@ -37,17 +42,13 @@ export default class Auth extends React.Component {
 
 	onLoginPress() {
 		this.props.navigator.push({
-			title: 'Login',
-			component: Login,
+			...Login.route,
 			passProps: this.loginProps
 		});
 	}
 
 	onLoginSuccess() {
-		this.props.navigator.resetTo({
-			title: 'Search',
-			component: Search
-		});
+		this.props.navigator.resetTo(Search.route);
 	}
 
 	onLoginError() {

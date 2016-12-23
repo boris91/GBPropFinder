@@ -1,19 +1,20 @@
 import React from 'react';
 import {
 	Auth,
-	Search
+	Login,
+	Search,
+	SearchResults,
+	SearchResultDetails
 } from './containers/all';
 
-export const routes = [{
-	index: 0,
-	title: 'Authentication',
-	component: Auth
-}, {
-	index: 1,
-	title: 'Search property',
-	component: Search
-}];
+export const routes = [
+	Auth.route,
+	Login.route,
+	Search.route,
+	SearchResults.route,
+	SearchResultDetails.route
+];
 
-export const renderScene = (route, navigator) => {
-	return <route.component {...route.passProps} navigator={navigator}/>;
-};
+export const renderScene = (route, navigator) => (
+	<route.component {...route.passProps} navigator={navigator}/>
+);

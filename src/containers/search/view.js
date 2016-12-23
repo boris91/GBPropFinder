@@ -12,6 +12,12 @@ const Param = {
 };
 
 export default class Search extends React.Component {
+	static route = {
+		title: 'Property search',
+		component: Search
+	};
+
+
 	static defaultProps = {
 		title: 'Search for property (by place name, post code or location).',
 		queryHolder: 'Place/postcode',

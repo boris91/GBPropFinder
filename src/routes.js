@@ -1,9 +1,16 @@
 import React from 'react';
-import Search from './containers/search/view';
+import {
+	Auth,
+	Search
+} from './containers/all';
 
 export const routes = [{
 	index: 0,
-	title: 'Property seeker',
+	title: 'Authentication',
+	component: Auth
+}, {
+	index: 1,
+	title: 'Search property',
 	component: Search
 }];
 

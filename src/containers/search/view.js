@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Btn, Div, Img, Input, Map, Txt } from '../../components/all';
+import { Btn, Div, Fld, Img, Map, Txt } from '../../components/all';
 
 import SearchResults from './components/results/view';
 
@@ -14,7 +14,7 @@ const Param = {
 export default class Search extends React.Component {
 	static defaultProps = {
 		title: 'Search for property (by place name, post code or location).',
-		queryPlaceholder: 'Place/postcode',
+		queryHolder: 'Place/postcode',
 		imageSrc: require('./images/house.png'),
 		apiUrl: 'http://api.nestoria.co.uk/api?encoding=json&action=search_listings',
 		invalidQueryMessage: 'Query\'s invalid. Please, enter the correct one.',
@@ -43,7 +43,7 @@ export default class Search extends React.Component {
 	}
 
 	render() {
-		const { title, mapInitialRegion, queryPlaceholder, imageSrc } = this.props;
+		const { title, mapInitialRegion, queryHolder, imageSrc } = this.props;
 		const { query, error } = this.state;
 
 		return (
@@ -51,7 +51,7 @@ export default class Search extends React.Component {
 				<Txt style={_.title}>{title}</Txt>
 				<Map style={_.map} initialRegion={mapInitialRegion}/>
 				<Div style={_.flowRight}>
-					<Input style={_.searchInput} placeholder={queryPlaceholder} value={query} onChange={this.onQueryChange}/>
+					<Fld style={_.queryField} placeholder={queryHolder} value={query} onChange={this.onQueryChange}/>
 					<Btn style={_.button} text="Go" onPress={this.onGoPress}/>
 				</Div>
 				<Div style={_.flowRight}>

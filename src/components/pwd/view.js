@@ -1,6 +1,6 @@
 import React from 'react';
-import { Input } from '../all';
+import { Fld } from '../all';
 
 export default props => (
-	<Input {...props} secureTextEntry={true}>{props.children}</Input>
+	<Fld {...props} secureTextEntry={true}>{props.children}</Fld>
 );

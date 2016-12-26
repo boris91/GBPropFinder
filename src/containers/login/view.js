@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Btn, Div, Fld, Pwd, Spinner, Txt } from '../../components/index';
+import { Api } from '../../services/index';
 
 import * as _ from './styles';
 
@@ -36,6 +37,8 @@ export default class Login extends React.Component {
 		this.onNickChange = this.onNickChange.bind(this);
 		this.onPwdChange = this.onPwdChange.bind(this);
 		this.onOkPress = this.onOkPress.bind(this);
+		this.onLoginSuccess = this.onLoginSuccess.bind(this);
+		this.onLoginError = this.onLoginError.bind(this);
 	}
 
 	render() {
@@ -74,21 +77,20 @@ export default class Login extends React.Component {
 	}
 
 	onOkPress() {
+		const { nick, pwd } = this.state;
 		this.setState({ typing: false, pending: true });
 
-		//TODO: remove this code when API is ready
-		setTimeout(() => {
-			const { nick, pwd } = this.state;
-			this['admin' === nick && 'admin' === pwd ? 'onSuccess' : 'onError']();
-		}, 1000);
+		Api.login(nick, pwd)
+			.then(this.onLoginSuccess)
+			.catch(this.onLoginError);
 	}
 
-	onSuccess() {
+	onLoginSuccess() {
 		this.setState({ pending: false, error: false });
 		this.props.onSuccess();
 	}
 
-	onError() {
+	onLoginError() {
 		this.setState({ pending: false, error: true });
 		this.props.onError();
 	}

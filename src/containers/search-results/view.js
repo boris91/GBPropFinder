@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { List, Touch, Div, Spinner, Img, Txt } from '../../components/index';
+import { Api } from '../../services/index';
 
 import SearchResultDetails from '../search-result-details/view';
 
@@ -89,12 +90,9 @@ export default class SearchResults extends React.Component {
 		);
 	}
 
-	fetchData(page = 1) {
-		const { apiUrl, param, query } = this.props;
-		const url = `${apiUrl}&${param}=${encodeURIComponent(query)}&page=${page}`;
-
-		return fetch(url)
-			.then(response => response.json())
+	fetchData(page) {
+		const { param, query } = this.props;
+		return Api.search(param, query, page)
 			.then(this.onDataFetchSucceed)
 			.catch(this.onDataFetchFailed);
 	}

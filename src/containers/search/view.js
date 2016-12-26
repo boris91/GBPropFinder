@@ -22,7 +22,6 @@ export default class Search extends React.Component {
 		title: 'Search for property (by place name, post code or location).',
 		queryHolder: 'Place/postcode',
 		imageSrc: require('./images/house.png'),
-		apiUrl: 'http://api.nestoria.co.uk/api?encoding=json&action=search_listings',
 		invalidQueryMessage: 'Query\'s invalid. Please, enter the correct one.',
 		invalidGpsLocation: 'GPS location couldn\'t be obtained properly. Try again later.',
 		requestFailMessage: 'Reqeust failed. Try again later.',

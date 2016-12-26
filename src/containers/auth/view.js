@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { Div, Txt, Btn } from '../../components/index';
-import Login from '../login/view';
-import Search from '../search/view';
-
+import Base from '../base/view';
 import * as _ from './styles';
 
-export default class Auth extends React.Component {
+const { Div, Txt, Btn } = Base.components;
+
+export default class Auth extends Base {
 	static route = {
 		title: 'Authentication',
 		component: Auth
@@ -42,13 +41,13 @@ export default class Auth extends React.Component {
 
 	onLoginPress() {
 		this.props.navigator.push({
-			...Login.route,
+			...this.containers.Login.route,
 			passProps: this.loginProps
 		});
 	}
 
 	onLoginSuccess() {
-		this.props.navigator.resetTo(Search.route);
+		this.props.navigator.resetTo(this.containers.Search.route);
 	}
 
 	onLoginError() {

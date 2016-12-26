@@ -1,13 +1,11 @@
 import React from 'react';
 
-import { List, Touch, Div, Spinner, Img, Txt } from '../../components/index';
-import { Api } from '../../services/index';
-
-import SearchResultDetails from '../search-result-details/view';
-
+import Base from '../base/view';
 import * as _ from './styles';
 
-export default class SearchResults extends React.Component {
+const { List, Touch, Div, Spinner, Img, Txt } = Base.components;
+
+export default class SearchResults extends Base {
 	static route = {
 		title: 'Results',
 		component: SearchResults
@@ -92,7 +90,7 @@ export default class SearchResults extends React.Component {
 
 	fetchData(page) {
 		const { param, query } = this.props;
-		return Api.search(param, query, page)
+		return this.services.Api.search(param, query, page)
 			.then(this.onDataFetchSucceed)
 			.catch(this.onDataFetchFailed);
 	}
@@ -124,7 +122,7 @@ export default class SearchResults extends React.Component {
 
 	onRowPress(passProps) {
 		this.props.navigator.push({
-			...SearchResultDetails.route,
+			...this.containers.SearchResultDetails.route,
 			passProps
 		});
 	}

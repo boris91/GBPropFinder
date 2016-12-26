@@ -1,16 +1,15 @@
 import React from 'react';
 
-import { Btn, Div, Fld, Pwd, Spinner, Txt } from '../../components/index';
-import { Api } from '../../services/index';
-
+import Base from '../base/view';
 import * as _ from './styles';
 
-export default class Login extends React.Component {
+const { Btn, Div, Fld, Pwd, Spinner, Txt } = Base.components;
+
+export default class Login extends Base {
 	static route = {
 		title: 'Login',
 		component: Login
 	};
-
 
 	static defaultProps = {
 		onSuccess() { console.log('onSuccess'); },
@@ -80,7 +79,7 @@ export default class Login extends React.Component {
 		const { nick, pwd } = this.state;
 		this.setState({ typing: false, pending: true });
 
-		Api.login(nick, pwd)
+		this.services.Api.login(nick, pwd)
 			.then(this.onLoginSuccess)
 			.catch(this.onLoginError);
 	}

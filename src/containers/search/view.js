@@ -1,17 +1,15 @@
 import React from 'react';
 
-import { Btn, Div, Fld, Img, Map, Txt } from '../../components/index';
-
-import SearchResults from '../search-results/view';
-
+import Base from '../base/view';
 import * as _ from './styles';
 
+const { Btn, Div, Fld, Img, Map, Txt } = Base.components;
 const Param = {
 	PLACE: 'place_name',
 	GPS: 'centre_point'
 };
 
-export default class Search extends React.Component {
+export default class Search extends Base {
 	static route = {
 		title: 'Property search',
 		component: Search
@@ -70,8 +68,7 @@ export default class Search extends React.Component {
 
 	navToResults(param, query) {
 		this.props.navigator.push({
-			title: 'Results',
-			component: SearchResults,
+			...this.containers.SearchResults.route,
 			passProps: {
 				...this.props,
 				param,

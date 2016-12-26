@@ -2,7 +2,7 @@ import { Xhr } from './index';
 
 export const login = (nick, pwd) => {
 	return new Promise((resolve, reject) => {
-		//TODO: remove this code when API is ready
+		//TODO: remove this code when login API is accessible
 		setTimeout(() => {
 			if ('admin' === nick && 'admin' === pwd) {
 				resolve();

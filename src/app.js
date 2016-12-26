@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Nav } from './components/all';
+import { Nav } from './components/index';
 import { routes, routeMapper, renderScene } from './routes';
 import * as _ from './styles';
 

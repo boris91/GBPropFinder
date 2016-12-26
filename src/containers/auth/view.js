@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Div, Txt, Btn } from '../../components/all';
+import { Div, Txt, Btn } from '../../components/index';
 import Login from '../login/view';
 import Search from '../search/view';
 

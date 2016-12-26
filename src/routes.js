@@ -5,7 +5,7 @@ import {
 	Search,
 	SearchResults,
 	SearchResultDetails
-} from './containers/all';
+} from './containers/index';
 
 export const routes = [
 	Auth.route,

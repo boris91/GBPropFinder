@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { List, Touch, Div, Spinner, Img, Txt } from '../../../../components/all';
+import { List, Touch, Div, Spinner, Img, Txt } from '../../components/index';
 
-import SearchResultDetails from '../result-details/view';
+import SearchResultDetails from '../search-result-details/view';
 
 import * as _ from './styles';
 

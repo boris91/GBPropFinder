@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Div, Img, Txt } from '../../../../components/all';
+import { Div, Img, Txt } from '../../components/index';
 
 import convertResult from './converter';
 

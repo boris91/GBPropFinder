@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Btn, Div, Fld, Pwd, Spinner, Txt } from '../../components/all';
+import { Btn, Div, Fld, Pwd, Spinner, Txt } from '../../components/index';
 
 import * as _ from './styles';
 

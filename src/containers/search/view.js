@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Btn, Div, Fld, Img, Map, Txt } from '../../components/all';
+import { Btn, Div, Fld, Img, Map, Txt } from '../../components/index';
 
-import SearchResults from './components/results/view';
+import SearchResults from '../search-results/view';
 
 import * as _ from './styles';
 

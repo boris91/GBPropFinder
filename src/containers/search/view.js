@@ -4,10 +4,6 @@ import Base from '../base/view';
 import * as _ from './styles';
 
 const { Btn, Div, Fld, Img, Map, Txt } = Base.components;
-const Param = {
-	PLACE: 'place_name',
-	GPS: 'centre_point'
-};
 
 export default class Search extends Base {
 	static route = {
@@ -15,22 +11,7 @@ export default class Search extends Base {
 		component: Search
 	};
 
-
-	static defaultProps = {
-		title: 'Search for property (by place name, post code or location).',
-		queryHolder: 'Place/postcode',
-		imageSrc: require('./images/house.png'),
-		invalidQueryMessage: 'Query\'s invalid. Please, enter the correct one.',
-		invalidGpsLocation: 'GPS location couldn\'t be obtained properly. Try again later.',
-		requestFailMessage: 'Reqeust failed. Try again later.',
-		noDataMessage: 'No data provided. Try again later.',
-		mapInitialRegion: {
-			latitude: 51.5074,
-			longitude: 0.1278,
-			latitudeDelta: 0,
-			longitudeDelta: 0
-		}
-	};
+	static defaultProps = Base.config.search.defaultProps;
 
 	constructor(props) {
 		super(props);
@@ -78,11 +59,11 @@ export default class Search extends Base {
 	}
 
 	navToResultsByPlace() {
-		this.navToResults(Param.PLACE, this.state.query);
+		this.navToResults(this.props.QueryParam.PLACE, this.state.query);
 	}
 
 	navToResultsByGps(query = this.state.query) {
-		this.navToResults(Param.GPS, query);
+		this.navToResults(this.props.QueryParam.GPS, query);
 	}
 
 	isQueryGpsLocation() {

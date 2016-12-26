@@ -8,7 +8,7 @@ const { Div, Img, Txt } = Base.components;
 
 export default class SearchResultDetails extends Base {
 	static route = {
-		title: 'Authentication',
+		title: 'Search result details',
 		component: SearchResultDetails
 	};
 

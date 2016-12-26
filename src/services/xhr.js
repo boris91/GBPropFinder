@@ -1,4 +1,4 @@
-import config from '../app/config';
+import config from '../app/configs/index';
 
 export default class Xhr {
 	static host = config.services.xhr.host || '';

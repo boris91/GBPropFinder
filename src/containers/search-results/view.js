@@ -7,15 +7,11 @@ const { List, Touch, Div, Spinner, Img, Txt } = Base.components;
 
 export default class SearchResults extends Base {
 	static route = {
-		title: 'Results',
+		title: 'Search results',
 		component: SearchResults
 	};
 
-	static defaultProps = {
-		noResultsMessage: 'No results found for your query.',
-		param: '',
-		query: ''
-	};
+	static defaultProps = Base.config.searchResults.defaultProps;
 
 	constructor(props) {
 		super(props);

@@ -12,14 +12,9 @@ export default class Login extends Base {
 	};
 
 	static defaultProps = {
+		...Base.config.login.defaultProps,
 		onSuccess() { console.log('onSuccess'); },
-		onError() { console.log('onError'); },
-
-		title: 'Enter your credentials',
-		nickHolder: 'Nickname',
-		pwdHolder: 'Password',
-		btnText: 'Sign in',
-		errorMessage: 'Login failed: check your nickname & password for validity.'
+		onError() { console.log('onError'); }
 	};
 
 	constructor(props) {

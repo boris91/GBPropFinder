@@ -11,10 +11,7 @@ export default class Auth extends Base {
 		component: Auth
 	};
 
-	static defaultProps = {
-		title: 'Authenticate to the application',
-		loginBtnText: 'Log In'
-	};
+	static defaultProps = Base.config.auth.defaultProps;
 
 	constructor(props) {
 		super(props);

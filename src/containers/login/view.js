@@ -6,7 +6,6 @@ import * as _ from './styles';
 const { Btn, Div, Fld, Pwd, Spinner, Txt } = Base.components;
 
 export default class Login extends Base {
-	static route = Base.config.login.route;
 	static defaultProps = {
 		...Base.config.login.defaultProps,
 		onSuccess() { console.log('onSuccess'); },

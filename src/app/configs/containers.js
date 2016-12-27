@@ -1,8 +1,4 @@
 export const auth = {
-	route: {
-		id: 'auth',
-		title: 'Authentication'
-	},
 	defaultProps: {
 		title: 'Authenticate to the application',
 		loginBtnText: 'Log In'
@@ -10,10 +6,6 @@ export const auth = {
 };
 
 export const login = {
-	route: {
-		id: 'login',
-		title: 'Login'
-	},
 	defaultProps: {
 		title: 'Enter your credentials',
 		nickHolder: 'Nickname',
@@ -24,10 +16,6 @@ export const login = {
 };
 
 export const search = {
-	route: {
-		id: 'search',
-		title: 'Property search'
-	},
 	defaultProps: {
 		title: 'Search for property (by place name, post code or location).',
 		queryHolder: 'Place/postcode',
@@ -49,18 +37,9 @@ export const search = {
 	}
 };
 
-export const searchResultDetails = {
-	route: {
-		id: 'search-result-details',
-		title: 'Search result details'
-	}
-};
+export const searchResultDetails = null;
 
 export const searchResults = {
-	route: {
-		id: 'search-results',
-		title: 'Search results'
-	},
 	defaultProps: {
 		noResultsMessage: 'No results found for your query.',
 		param: '',

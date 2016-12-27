@@ -1,6 +1,6 @@
 import React from 'react';
 
-import routes from '../../app/configs/routes';
+import routes from '../../app/routes';
 import config from '../../app/configs/index';
 import * as components from '../../components/index';
 import * as containers from '../../containers/index';

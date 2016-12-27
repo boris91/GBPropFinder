@@ -6,11 +6,7 @@ import * as _ from './styles';
 const { Btn, Div, Fld, Img, Map, Txt } = Base.components;
 
 export default class Search extends Base {
-	static route = {
-		title: 'Property search',
-		component: Search
-	};
-
+	static route = Base.config.search.route;
 	static defaultProps = Base.config.search.defaultProps;
 
 	constructor(props) {
@@ -48,14 +44,7 @@ export default class Search extends Base {
 	}
 
 	navToResults(param, query) {
-		this.props.navigator.push({
-			...this.containers.SearchResults.route,
-			passProps: {
-				...this.props,
-				param,
-				query
-			}
-		});
+		this.navTo('search-results', { ...this.props, param, query });
 	}
 
 	navToResultsByPlace() {

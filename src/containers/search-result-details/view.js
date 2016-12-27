@@ -7,10 +7,7 @@ import * as _ from './styles';
 const { Div, Img, Txt } = Base.components;
 
 export default class SearchResultDetails extends Base {
-	static route = {
-		title: 'Search result details',
-		component: SearchResultDetails
-	};
+	static route = Base.config.searchResultDetails.route;
 
 	render() {
 		const {

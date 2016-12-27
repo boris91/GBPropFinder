@@ -6,11 +6,7 @@ import * as _ from './styles';
 const { List, Touch, Div, Spinner, Img, Txt } = Base.components;
 
 export default class SearchResults extends Base {
-	static route = {
-		title: 'Search results',
-		component: SearchResults
-	};
-
+	static route = Base.config.searchResults.route;
 	static defaultProps = Base.config.searchResults.defaultProps;
 
 	constructor(props) {
@@ -116,10 +112,7 @@ export default class SearchResults extends Base {
 		});
 	}
 
-	onRowPress(passProps) {
-		this.props.navigator.push({
-			...this.containers.SearchResultDetails.route,
-			passProps
-		});
+	onRowPress(data) {
+		this.navTo('search-result-details', data);
 	}
 };

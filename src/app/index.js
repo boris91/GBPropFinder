@@ -1,12 +1,11 @@
 import React from 'react';
 
 import { Nav } from '../components/index';
-import { routes, routeMapper, renderScene } from './routes';
-import * as _ from './styles';
+import { initialRoute, routes } from './configs/routes';
 
 export default props => (
-	<Nav style={_.navigator}
-		initialRoute={routes[0]}
+	<Nav style={{ flex: 1 }}
+		initialRoute={initialRoute}
 		initialRouteStack={routes}
-		renderScene={renderScene}/>
+		renderScene={(route, navigator) => <route.component {...route.passProps} navigator={navigator}/>}/>
 );

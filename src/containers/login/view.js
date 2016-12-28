@@ -6,22 +6,19 @@ import * as _ from './styles';
 const { Btn, Div, Fld, Pwd, Spinner, Txt } = Base.components;
 
 export default class Login extends Base {
+	static ID = 'login';
 	static defaultProps = {
 		...Base.config.login.defaultProps,
 		onSuccess() { console.log('onSuccess'); },
 		onError() { console.log('onError'); }
 	};
+	static mapStateToProps(state, ownProps) { return state.login; }
 
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			typing: false,
-			pending: false,
-			error: false,
-			nick: '',
-			pwd: ''
-		};
+		const { pending, nick, pwd, error } = this.props;
+		this.state = { pending, nick, pwd, error };
 
 		this.onNickChange = this.onNickChange.bind(this);
 		this.onPwdChange = this.onPwdChange.bind(this);
@@ -58,29 +55,31 @@ export default class Login extends Base {
 	}
 
 	onNickChange(event) {
-		this.setState({ typing: true, nick: event.nativeEvent.text });
+		this.setState({ nick: event.nativeEvent.text });
 	}
 
 	onPwdChange(event) {
-		this.setState({ typing: true, pwd: event.nativeEvent.text });
+		this.setState({ pwd: event.nativeEvent.text });
 	}
 
 	onOkPress() {
 		const { nick, pwd } = this.state;
-		this.setState({ typing: false, pending: true });
+		this.setState({ pending: true });
 
-		this.services.Api.login(nick, pwd)
+		this.runAction('loginRequest', nick, pwd)
 			.then(this.onLoginSuccess)
 			.catch(this.onLoginError);
 	}
 
 	onLoginSuccess() {
 		this.setState({ pending: false, error: false });
+		this.runAction('loginSuccess');
 		this.props.onSuccess();
 	}
 
 	onLoginError() {
 		this.setState({ pending: false, error: true });
+		this.runAction('loginError');
 		this.props.onError();
 	}
 };

@@ -1,4 +1,4 @@
-import * as types from '../action-types/login';
+import types from '../action-types/login';
 import initialState from '../store/initial-state/login';
 
 export default (state = initialState, action) => {
@@ -15,20 +15,20 @@ export default (state = initialState, action) => {
 				pwd: action.pwd
 			};
 
-		case types.LOGIN_REQUEST:
+		case types.SEND_LOGIN_REQUEST:
 			return {
 				...state,
 				pending: true,
 				error: false
 			};
 
-		case types.LOGIN_SUCCESS:
+		case types.RECEIVE_LOGIN_SUCCESS:
 			return {
 				...state,
 				pending: false
 			};
 
-		case types.LOGIN_ERROR:
+		case types.RECEIVE_LOGIN_ERROR:
 			return {
 				...state,
 				pending: false,

@@ -2,6 +2,7 @@ import React from 'react';
 
 import Base from '../base/view';
 import * as _ from './styles';
+import types from '../../action-types/login';
 
 const { Btn, Div, Fld, Pwd, Spinner, Txt } = Base.components;
 
@@ -22,51 +23,57 @@ export default class Login extends Base {
 		const { title, nickHolder, pwdHolder, btnText, errorMessage } = this.props;
 		const { pending, nick, pwd, error } = this.storeState.login;
 
+		if (pending) {
+			return (
+				<Div style={_.container}>
+					<Spinner style={_.spinner} size="large" color="#909090"/>
+				</Div>
+			);
+		}
+
 		return (
 			<Div style={_.container}>
 				<Txt style={_.title}>{title}</Txt>
 				<Div style={_.row}>
-					<Fld style={_.field} editable={!pending} placeholder={nickHolder} value={nick} onChange={this.onNickChange}/>
+					<Fld style={_.field} placeholder={nickHolder} value={nick} onChange={this.onNickChange}/>
 				</Div>
 				<Div style={_.row}>
-					<Pwd style={_.field} editable={!pending} placeholder={pwdHolder} value={pwd} onChange={this.onPwdChange}/>
+					<Pwd style={_.field} placeholder={pwdHolder} value={pwd} onChange={this.onPwdChange}/>
 				</Div>
 				<Div style={_.row}>
-					<Btn style={_.button} disabled={pending} text={btnText} onPress={this.onOkPress}/>
+					<Btn style={_.button} disabled={!nick || !pwd} text={btnText} onPress={this.onOkPress}/>
 				</Div>
-				{pending ? (
-					<Spinner style={_.spinner} size="large" color="#909090"/>
-				) : (error ? (
+				{error ? (
 					<Div style={_.errorContainer}>
 						<Txt style={_.error}>{errorMessage}</Txt>
 					</Div>
-				) : null)}
+				) : null}
 			</Div>
 		);
 	}
 
 	onNickChange(event) {
-		this.runAction('setLoginNick', event.nativeEvent.text);
+		this.runAction(types.SET_LOGIN_NICK, event.nativeEvent.text);
 	}
 
 	onPwdChange(event) {
-		this.runAction('setLoginPwd', event.nativeEvent.text);
+		this.runAction(types.SET_LOGIN_PWD, event.nativeEvent.text);
 	}
 
 	onOkPress() {
 		const { nick, pwd } = this.storeState.login;
-		this.runAction('loginRequest', nick, pwd)
+		this.runAction(types.SEND_LOGIN_REQUEST, nick, pwd)
 			.then(this.onLoginSuccess)
 			.catch(this.onLoginError);
 	}
 
 	onLoginSuccess() {
-		this.runAction('loginSuccess');
+		this.runAction(types.RECEIVE_LOGIN_SUCCESS);
 		this.props.onSuccess();
 	}
 
 	onLoginError() {
-		this.runAction('loginError');
+		this.runAction(types.RECEIVE_LOGIN_ERROR);
 		this.props.onError();
 	}
 };

@@ -1,23 +1,39 @@
-import * as types from '../action-types/login';
+import types from '../action-types/login';
 import { Api } from '../services/index';
 
-export const setLoginNick = (dispatch, nick) => {
-	dispatch({ type: types.SET_LOGIN_NICK, nick });
-};
+export default {
+	[types.SET_LOGIN_NICK](dispatch, nick) {
+		dispatch({
+			type: types.SET_LOGIN_NICK,
+			nick
+		});
+	},
 
-export const setLoginPwd = (dispatch, pwd) => {
-	dispatch({ type: types.SET_LOGIN_PWD, pwd });
-};
+	[types.SET_LOGIN_PWD](dispatch, pwd) {
+		dispatch({
+			type: types.SET_LOGIN_PWD,
+			pwd
+		});
+	},
 
-export const loginRequest = (dispatch, nick, pwd) => {
-	dispatch({ type: types.LOGIN_REQUEST, nick, pwd });
-	return Api.login(nick, pwd);
-};
+	[types.SEND_LOGIN_REQUEST](dispatch, nick, pwd) {
+		dispatch({
+			type: types.SEND_LOGIN_REQUEST,
+			nick,
+			pwd
+		});
+		return Api.login(nick, pwd);
+	},
 
-export const loginSuccess = dispatch => {
-	dispatch({ type: types.LOGIN_SUCCESS });
-};
+	[types.RECEIVE_LOGIN_SUCCESS](dispatch) {
+		dispatch({
+			type: types.RECEIVE_LOGIN_SUCCESS
+		});
+	},
 
-export const loginError = dispatch => {
-	dispatch({ type: types.LOGIN_ERROR });
+	[types.RECEIVE_LOGIN_ERROR](dispatch) {
+		dispatch({
+			type: types.RECEIVE_LOGIN_ERROR
+		});
+	}
 };

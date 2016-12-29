@@ -1,4 +1,4 @@
-import * as login from './login';
+import login from './login';
 
 export default {
 	...login

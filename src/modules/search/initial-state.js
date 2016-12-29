@@ -1,4 +1,6 @@
 export default {
+	criteria: '',
+	query: 'london',
 	pending: true,
 	error: false,
 	errorMessage: '',

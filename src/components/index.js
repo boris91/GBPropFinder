@@ -1,7 +1,6 @@
 import {
 	ActivityIndicator,
 	Image,
-	ListView,
 	NavigatorIOS,
 	Text,
 	TouchableHighlight,
@@ -11,6 +10,7 @@ import Map from 'react-native-maps';
 
 import Btn from './btn/view';
 import Fld from './fld/view';
+import List from './list/view';
 import Pwd from './pwd/view';
 
 export {
@@ -18,7 +18,7 @@ export {
 	Btn,
 	Fld,
 	Image as Img,
-	ListView as List,
+	List,
 	Map,
 	NavigatorIOS as Nav,
 	Pwd,

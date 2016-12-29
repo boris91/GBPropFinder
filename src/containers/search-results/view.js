@@ -12,7 +12,6 @@ export default class SearchResults extends Base {
 	constructor(props) {
 		super(props);
 
-		this.dataSrcAttrs = { rowHasChanged: (r1, r2) => r1.guid !== r2.guid };
 		this.renderRow = this.renderRow.bind(this);
 		this.onDataFetchSucceed = this.onDataFetchSucceed.bind(this);
 		this.onDataFetchFailed = this.onDataFetchFailed.bind(this);
@@ -38,20 +37,13 @@ export default class SearchResults extends Base {
 			if (0 === results.length) {
 				return <Txt style={_.message}>{noResultsMessage}</Txt>;
 			} else {
-				return this.renderResults(results);
+				return <List rows={results} renderRow={this.renderRow} dataSrcAtrs={this.dataSrcAttrs}/>;
 			}
 		} else if (error) {
 			return <Txt style={_.error}>{errorMessage}</Txt>;
 		} else if (pending) {
 			return <Spinner style={_.spinner} size="large" color="#909090"/>;
 		}
-	}
-
-	renderResults(results) {
-		const dataSrc = new List.DataSource(this.dataSrcAttrs).cloneWithRows(results);
-		return (
-			<List dataSource={dataSrc} renderRow={this.renderRow}/>
-		);
 	}
 
 	renderRow(data, sectionId, rowId) {

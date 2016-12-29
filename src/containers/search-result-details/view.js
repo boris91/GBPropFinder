@@ -7,8 +7,6 @@ import * as _ from './styles';
 const { Div, Img, Txt } = Base.components;
 
 export default class SearchResultDetails extends Base {
-	static ID = 'search-result-details';
-
 	render() {
 		const {
 			type, title, uri, summary, price, bedrooms, bathrooms

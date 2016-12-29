@@ -6,7 +6,6 @@ import * as _ from './styles';
 const { Div, Txt, Btn } = Base.components;
 
 export default class Auth extends Base {
-	static ID = 'auth';
 	static route = Base.config.auth.route;
 	static defaultProps = Base.config.auth.defaultProps;
 

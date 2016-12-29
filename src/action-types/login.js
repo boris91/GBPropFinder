@@ -1,3 +1,5 @@
+export const SET_LOGIN_NICK = 'SET_LOGIN_NICK';
+export const SET_LOGIN_PWD = 'SET_LOGIN_PWD';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';

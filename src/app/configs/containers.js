@@ -11,7 +11,9 @@ export const login = {
 		nickHolder: 'Nickname',
 		pwdHolder: 'Password',
 		btnText: 'Sign in',
-		errorMessage: 'Login failed: check your nickname & password for validity.'
+		errorMessage: 'Login failed: check your nickname & password for validity.',
+		onSuccess() {},
+		onError() {}
 	}
 };
 

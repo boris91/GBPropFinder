@@ -6,7 +6,6 @@ import * as _ from './styles';
 const { List, Touch, Div, Spinner, Img, Txt } = Base.components;
 
 export default class SearchResults extends Base {
-	static ID = 'search-results';
 	static defaultProps = Base.config.searchResults.defaultProps;
 
 	constructor(props) {

@@ -1,19 +1,23 @@
-import { Api } from '../services/index';
 import * as types from '../action-types/login';
+import { Api } from '../services/index';
 
-export const loginRequest = (nick, pwd) => ([
-	{
-		type: types.LOGIN_REQUEST,
-		nick,
-		pwd
-	},
-	Api.login(nick, pwd)
-]);
+export const setLoginNick = (dispatch, nick) => {
+	dispatch({ type: types.SET_LOGIN_NICK, nick });
+};
 
-export const loginSuccess = () => ({
-	type: types.LOGIN_SUCCESS
-});
+export const setLoginPwd = (dispatch, pwd) => {
+	dispatch({ type: types.SET_LOGIN_PWD, pwd });
+};
 
-export const loginError = () => ({
-	type: types.LOGIN_ERROR
-});
+export const loginRequest = (dispatch, nick, pwd) => {
+	dispatch({ type: types.LOGIN_REQUEST, nick, pwd });
+	return Api.login(nick, pwd);
+};
+
+export const loginSuccess = dispatch => {
+	dispatch({ type: types.LOGIN_SUCCESS });
+};
+
+export const loginError = dispatch => {
+	dispatch({ type: types.LOGIN_ERROR });
+};

@@ -6,19 +6,10 @@ import * as _ from './styles';
 const { Btn, Div, Fld, Pwd, Spinner, Txt } = Base.components;
 
 export default class Login extends Base {
-	static ID = 'login';
-	static defaultProps = {
-		...Base.config.login.defaultProps,
-		onSuccess() { console.log('onSuccess'); },
-		onError() { console.log('onError'); }
-	};
-	static mapStateToProps(state, ownProps) { return state.login; }
+	static defaultProps = Base.config.login.defaultProps;
 
 	constructor(props) {
 		super(props);
-
-		const { pending, nick, pwd, error } = this.props;
-		this.state = { pending, nick, pwd, error };
 
 		this.onNickChange = this.onNickChange.bind(this);
 		this.onPwdChange = this.onPwdChange.bind(this);
@@ -29,7 +20,7 @@ export default class Login extends Base {
 
 	render() {
 		const { title, nickHolder, pwdHolder, btnText, errorMessage } = this.props;
-		const { pending, nick, pwd, error } = this.state;
+		const { pending, nick, pwd, error } = this.storeState.login;
 
 		return (
 			<Div style={_.container}>
@@ -55,30 +46,26 @@ export default class Login extends Base {
 	}
 
 	onNickChange(event) {
-		this.setState({ nick: event.nativeEvent.text });
+		this.runAction('setLoginNick', event.nativeEvent.text);
 	}
 
 	onPwdChange(event) {
-		this.setState({ pwd: event.nativeEvent.text });
+		this.runAction('setLoginPwd', event.nativeEvent.text);
 	}
 
 	onOkPress() {
-		const { nick, pwd } = this.state;
-		this.setState({ pending: true });
-
+		const { nick, pwd } = this.storeState.login;
 		this.runAction('loginRequest', nick, pwd)
 			.then(this.onLoginSuccess)
 			.catch(this.onLoginError);
 	}
 
 	onLoginSuccess() {
-		this.setState({ pending: false, error: false });
 		this.runAction('loginSuccess');
 		this.props.onSuccess();
 	}
 
 	onLoginError() {
-		this.setState({ pending: false, error: true });
 		this.runAction('loginError');
 		this.props.onError();
 	}

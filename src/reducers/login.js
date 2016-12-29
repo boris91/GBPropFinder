@@ -3,41 +3,37 @@ import initialState from '../store/initial-state/login';
 
 export default (state = initialState, action) => {
 	switch (action.type) {
+		case types.SET_LOGIN_NICK:
+			return {
+				...state,
+				nick: action.nick
+			};
+
+		case types.SET_LOGIN_PWD:
+			return {
+				...state,
+				pwd: action.pwd
+			};
+
 		case types.LOGIN_REQUEST:
 			return {
 				...state,
-				login: {
-					complete: false,
-					pending: true,
-					error: false,
-					nick: action.nick,
-					pwd: action.pwd
-				}
+				pending: true,
+				error: false
 			};
-			break;
 
 		case types.LOGIN_SUCCESS:
 			return {
 				...state,
-				login: {
-					...state.login,
-					complete: true,
-					pending: false
-				}
+				pending: false
 			};
-			break;
 
 		case types.LOGIN_ERROR:
 			return {
 				...state,
-				login: {
-					...state.login,
-					complete: true,
-					pending: false,
-					error: true
-				}
+				pending: false,
+				error: true
 			};
-			break;
 
 		default:
 			return state;

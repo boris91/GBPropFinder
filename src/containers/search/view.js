@@ -6,7 +6,6 @@ import * as _ from './styles';
 const { Btn, Div, Fld, Img, Map, Txt } = Base.components;
 
 export default class Search extends Base {
-	static ID = 'search';
 	static defaultProps = Base.config.search.defaultProps;
 
 	constructor(props) {

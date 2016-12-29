@@ -2,6 +2,7 @@ import React from 'react';
 
 import Base from '../base/view';
 import * as _ from './styles';
+import types from '../../modules/search/types';
 
 const { Btn, Div, Fld, Img, Map, Txt } = Base.components;
 
@@ -11,10 +12,6 @@ export default class Search extends Base {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			query: ''
-		};
-
 		this.gps = navigator.geolocation;
 		this.onQueryChange = this.onQueryChange.bind(this);
 		this.onGoPress = this.onGoPress.bind(this);
@@ -23,7 +20,7 @@ export default class Search extends Base {
 
 	render() {
 		const { title, mapInitialRegion, queryHolder, imageSrc } = this.props;
-		const { query, error } = this.state;
+		const { query, error } = this.storeState.search;
 
 		return (
 			<Div style={_.container}>
@@ -42,20 +39,13 @@ export default class Search extends Base {
 		);
 	}
 
-	navToResults(param, query) {
-		this.navTo('search-results', { ...this.props, param, query });
-	}
-
-	navToResultsByPlace() {
-		this.navToResults(this.props.QueryParam.PLACE, this.state.query);
-	}
-
-	navToResultsByGps(query = this.state.query) {
-		this.navToResults(this.props.QueryParam.GPS, query);
+	navToResults(criteria) {
+		this.runAction(types.SET_SEARCH_CRITERIA, criteria);
+		this.navTo('search-results');
 	}
 
 	isQueryGpsLocation() {
-		const gpsPosition = this.state.query.split(',');
+		const gpsPosition = this.storeState.search.query.split(',');
 		if (2 === gpsPosition.length) {
 			let latitude = parseFloat(gpsPosition[0]);
 			let longitude = parseFloat(gpsPosition[1]);
@@ -67,24 +57,21 @@ export default class Search extends Base {
 	}
 
 	onQueryChange(event) {
-		this.setState({ query: event.nativeEvent.text });
+		this.runAction(types.SET_SEARCH_QUERY, event.nativeEvent.text);
 	}
 
 	onGoPress() {
 		if (this.isQueryGpsLocation()) {
-			this.navToResultsByGps();
+			this.navToResults(this.props.QueryParam.GPS);
 		} else {
-			this.navToResultsByPlace();
+			this.navToResults(this.props.QueryParam.PLACE);
 		}
 	}
 
 	onLocationPress() {
-		this.gps.getCurrentPosition(
-			position => {
-				const query = `${position.coords.latitude},${position.coords.longitude}`;
-				this.navToResultsByGps(query);
-			},
-			error => this.setState({ error: this.props.invalidGpsLocation })
-		);
+		this.gps.getCurrentPosition(({ coords }) => {
+			this.runAction(types.SET_SEARCH_QUERY, `${coords.latitude},${coords.longitude}`);
+			this.navToResults(this.props.QueryParam.GPS);
+		});
 	}
 };

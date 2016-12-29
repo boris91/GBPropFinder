@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Base from '../base/view';
-import convertResult from './converter';
+import convertResult from '../../modules/search/result-converter';
 import * as _ from './styles';
 
 const { Div, Img, Txt } = Base.components;
@@ -10,7 +10,7 @@ export default class SearchResultDetails extends Base {
 	render() {
 		const {
 			type, title, uri, summary, price, bedrooms, bathrooms
-		} = convertResult(this.props);
+		} = convertResult(this.storeState.search.selectedResult);
 
 		return (
 			<Div style={_.container}>

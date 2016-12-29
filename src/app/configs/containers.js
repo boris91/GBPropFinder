@@ -24,7 +24,6 @@ export const search = {
 		imageSrc: require('../images/house.png'),
 		invalidQueryMessage: 'Query\'s invalid. Please, enter the correct one.',
 		invalidGpsLocation: 'GPS location couldn\'t be obtained properly. Try again later.',
-		requestFailMessage: 'Reqeust failed. Try again later.',
 		noDataMessage: 'No data provided. Try again later.',
 		QueryParam: {
 			PLACE: 'place_name',
@@ -44,6 +43,7 @@ export const searchResultDetails = null;
 export const searchResults = {
 	defaultProps: {
 		noResultsMessage: 'No results found for your query.',
+		requestFailMessage: 'Reqeust failed. Try again later.',
 		param: '',
 		query: ''
 	}

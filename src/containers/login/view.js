@@ -2,7 +2,7 @@ import React from 'react';
 
 import Base from '../base/view';
 import * as _ from './styles';
-import types from '../../action-types/login';
+import types from '../../modules/login/types';
 
 const { Btn, Div, Fld, Pwd, Spinner, Txt } = Base.components;
 

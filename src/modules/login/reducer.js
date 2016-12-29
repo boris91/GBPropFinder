@@ -1,5 +1,5 @@
-import types from '../action-types/login';
-import initialState from '../store/initial-state/login';
+import types from './types';
+import initialState from './initial-state';
 
 export default (state = initialState, action) => {
 	switch (action.type) {

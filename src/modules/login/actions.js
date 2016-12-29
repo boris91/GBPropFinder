@@ -1,5 +1,5 @@
-import types from '../action-types/login';
-import { Api } from '../services/index';
+import types from './types';
+import { Api } from '../../services/index';
 
 export default {
 	[types.SET_LOGIN_NICK](dispatch, nick) {

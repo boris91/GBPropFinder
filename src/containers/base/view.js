@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import routes from '../../app/routes';
 import config from '../../app/configs/index';
 import * as components from '../../components/index';
-import actions from '../../actions/index';
+import actions from '../../app/actions';
 import * as services from '../../services/index';
 
 export default class Base extends React.Component {

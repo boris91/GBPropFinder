@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 
 import { Nav } from '../components/index';
 import routes from './routes';
-import store from '../store/index';
+import store from './store/index';
 
 export default props => (
 	<Provider store={store}>

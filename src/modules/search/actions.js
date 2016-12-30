@@ -16,6 +16,13 @@ export default {
 		});
 	},
 
+	[types.SET_SEARCH_RESULTS_PAGE](dispatch, page) {
+		dispatch({
+			type: types.SET_SEARCH_RESULTS_PAGE,
+			page
+		});
+	},
+
 	[types.SELECT_SEARCH_RESULT](dispatch, selectedResult) {
 		dispatch({
 			type: types.SELECT_SEARCH_RESULT,
@@ -23,13 +30,14 @@ export default {
 		});
 	},
 
-	[types.SEND_SEARCH_REQUEST](dispatch, criteria, query) {
+	[types.SEND_SEARCH_REQUEST](dispatch, criteria, query, page) {
 		dispatch({
 			type: types.SEND_SEARCH_REQUEST,
 			criteria,
-			query
+			query,
+			page
 		});
-		return Api.search(criteria, query);
+		return Api.search(criteria, query, page);
 	},
 
 	[types.RECEIVE_SEARCH_SUCCESS](dispatch, { page, pagesCount, resultsCount, results }) {

@@ -6,7 +6,7 @@ const { Auth, Login, Search, SearchResultDetails, SearchResults } = containers;
 
 export default [{
 	id: 'auth',
-	title: 'Authentication',
+	title: 'Auth',
 	component: Auth
 }, {
 	id: 'login',
@@ -14,14 +14,14 @@ export default [{
 	component: Login
 }, {
 	id: 'search',
-	title: 'Property search',
+	title: 'Search',
 	component: Search
 }, {
 	id: 'search-result-details',
-	title: 'Search result details',
+	title: 'Property',
 	component: SearchResultDetails
 }, {
 	id: 'search-results',
-	title: 'Search results',
+	title: 'Results',
 	component: SearchResults
 }];

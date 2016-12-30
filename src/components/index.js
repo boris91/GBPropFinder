@@ -11,6 +11,7 @@ import Map from 'react-native-maps';
 import Btn from './btn/view';
 import Fld from './fld/view';
 import List from './list/view';
+import Pager from './pager/view';
 import Pwd from './pwd/view';
 
 export {
@@ -21,6 +22,7 @@ export {
 	List,
 	Map,
 	NavigatorIOS as Nav,
+	Pager,
 	Pwd,
 	Text as Txt,
 	TouchableHighlight as Touch,

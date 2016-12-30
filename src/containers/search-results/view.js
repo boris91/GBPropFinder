@@ -3,7 +3,7 @@ import React from 'react';
 import Base from '../base/view';
 import * as _ from './styles';
 
-const { List, Touch, Div, Spinner, Img, Txt } = Base.components;
+const { Div, Img, List, Pager, Spinner, Txt, Touch } = Base.components;
 
 export default class SearchResults extends Base {
 	static defaultProps = Base.config.searchResults.defaultProps;
@@ -14,6 +14,8 @@ export default class SearchResults extends Base {
 		this.renderRow = this.renderRow.bind(this);
 		this.onDataFetchSucceed = this.onDataFetchSucceed.bind(this);
 		this.onDataFetchFailed = this.onDataFetchFailed.bind(this);
+		this.onPagerPrevPress = this.onPagerPrevPress.bind(this);
+		this.onPagerNextPress = this.onPagerNextPress.bind(this);
 	}
 
 	componentDidMount() {
@@ -21,27 +23,38 @@ export default class SearchResults extends Base {
 	}
 
 	render() {
-		return (
-			<Div style={_.container}>
-				{this.renderContent()}
-			</Div>
-		);
-	}
-
-	renderContent() {
 		const { noResultsMessage } = this.props;
-		const { pending, error, errorMessage, results } = this.storeState.search;
+		const { pending, error, errorMessage, results, page, pagesCount } = this.storeState.search;
+		const pager = <Pager disabled={pending} btnStyle={_.pagerButton} current={page} count={pagesCount} onPrevPress={this.onPagerPrevPress} onNextPress={this.onPagerNextPress}/>
 
 		if (results) {
 			if (0 === results.length) {
-				return <Txt style={_.message}>{noResultsMessage}</Txt>;
+				return (
+					<Div style={_.container}>
+						<Txt style={_.message}>{noResultsMessage}</Txt>
+					</Div>
+				);
 			} else {
-				return <List rows={results} renderRow={this.renderRow} dataSrcAtrs={this.dataSrcAttrs}/>;
+				return (
+					<Div style={_.container}>
+						{pager}
+						<List rows={results} renderRow={this.renderRow} dataSrcAtrs={this.dataSrcAttrs}/>
+					</Div>
+				);
 			}
 		} else if (error) {
-			return <Txt style={_.error}>{errorMessage}</Txt>;
+			return (
+				<Div style={_.container}>
+					<Txt style={_.error}>{errorMessage}</Txt>
+				</Div>
+			);
 		} else if (pending) {
-			return <Spinner style={_.spinner} size="large" color="#909090"/>;
+			return (
+				<Div style={_.container}>
+					{pager}
+					<Spinner style={_.spinner} size="large" color="#909090"/>
+				</Div>
+			);
 		}
 	}
 
@@ -64,8 +77,11 @@ export default class SearchResults extends Base {
 		);
 	}
 
-	fetchData(page) {
+	fetchData(page = 1) {
 		const { criteria, query } = this.storeState.search;
+
+		this.runAction(this.types.SET_SEARCH_RESULTS_PAGE, page);
+
 		return this.runAction(this.types.SEND_SEARCH_REQUEST, criteria, query, page)
 			.then(this.onDataFetchSucceed)
 			.catch(this.onDataFetchFailed);
@@ -94,5 +110,13 @@ export default class SearchResults extends Base {
 	onRowPress(searchResult) {
 		this.runAction(this.types.SELECT_SEARCH_RESULT, searchResult);
 		this.navTo('search-result-details');
+	}
+
+	onPagerPrevPress() {
+		this.fetchData(this.storeState.search.page - 1);
+	}
+
+	onPagerNextPress() {
+		this.fetchData(this.storeState.search.page + 1);
 	}
 };

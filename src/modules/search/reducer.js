@@ -15,6 +15,12 @@ export default (state = initialState, action) => {
 				query: action.query
 			};
 
+		case types.SET_SEARCH_RESULTS_PAGE:
+			return {
+				...state,
+				page: action.page
+			};
+
 		case types.SELECT_SEARCH_RESULT:
 			return {
 				...state,
@@ -27,19 +33,16 @@ export default (state = initialState, action) => {
 				pending: true,
 				error: false,
 				errorMessage: '',
-				page: 0,
-				pagesCount: 0,
 				resultsCount: 0,
 				results: null,
 				selectedResult: null
 			};
 
 		case types.RECEIVE_SEARCH_SUCCESS:
-			const { page, pagesCount, resultsCount, results } = action;
+			const { pagesCount, resultsCount, results } = action;
 			return {
 				...state,
 				pending: false,
-				page,
 				pagesCount,
 				resultsCount,
 				results

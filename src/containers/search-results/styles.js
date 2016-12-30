@@ -15,6 +15,13 @@ export const spinner = {
 	alignSelf: 'center'
 };
 
+export const pagerButton = {
+	margin: 5,
+	color: '#c8c8c8',
+	backgroundColor: '#5a5a5a',
+	borderColor: '#323232'
+};
+
 export const separator = {
 	height: 1,
 	backgroundColor: '#6d6d6d'

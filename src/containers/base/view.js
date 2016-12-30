@@ -5,7 +5,7 @@ import routes from '../../app/routes';
 import config from '../../app/configs/index';
 import * as components from '../../components/index';
 import actions from '../../app/actions';
-import * as services from '../../services/index';
+import types from '../../app/types';
 
 export default class Base extends React.Component {
 	static config = config.containers;
@@ -15,7 +15,7 @@ export default class Base extends React.Component {
 	static connect() { return connect(this.mapStateToProps, this.mapDispatchToProps)(this); }
 
 	get storeState() { return this.props.storeStateContainer; }
-	get services() { return services; }
+	get types() { return types; }
 
 	runAction(actionName, ...args) {
 		return actions[actionName](this.props.dispatch, ...args);

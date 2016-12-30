@@ -2,7 +2,6 @@ import React from 'react';
 
 import Base from '../base/view';
 import * as _ from './styles';
-import types from '../../modules/login/types';
 
 const { Btn, Div, Fld, Pwd, Spinner, Txt } = Base.components;
 
@@ -53,27 +52,27 @@ export default class Login extends Base {
 	}
 
 	onNickChange(event) {
-		this.runAction(types.SET_LOGIN_NICK, event.nativeEvent.text);
+		this.runAction(this.types.SET_LOGIN_NICK, event.nativeEvent.text);
 	}
 
 	onPwdChange(event) {
-		this.runAction(types.SET_LOGIN_PWD, event.nativeEvent.text);
+		this.runAction(this.types.SET_LOGIN_PWD, event.nativeEvent.text);
 	}
 
 	onOkPress() {
 		const { nick, pwd } = this.storeState.login;
-		this.runAction(types.SEND_LOGIN_REQUEST, nick, pwd)
+		this.runAction(this.types.SEND_LOGIN_REQUEST, nick, pwd)
 			.then(this.onLoginSuccess)
 			.catch(this.onLoginError);
 	}
 
 	onLoginSuccess() {
-		this.runAction(types.RECEIVE_LOGIN_SUCCESS);
+		this.runAction(this.types.RECEIVE_LOGIN_SUCCESS);
 		this.props.onSuccess();
 	}
 
 	onLoginError() {
-		this.runAction(types.RECEIVE_LOGIN_ERROR);
+		this.runAction(this.types.RECEIVE_LOGIN_ERROR);
 		this.props.onError();
 	}
 };

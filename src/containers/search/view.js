@@ -2,7 +2,6 @@ import React from 'react';
 
 import Base from '../base/view';
 import * as _ from './styles';
-import types from '../../modules/search/types';
 
 const { Btn, Div, Fld, Img, Map, Txt } = Base.components;
 
@@ -40,7 +39,7 @@ export default class Search extends Base {
 	}
 
 	navToResults(criteria) {
-		this.runAction(types.SET_SEARCH_CRITERIA, criteria);
+		this.runAction(this.types.SET_SEARCH_CRITERIA, criteria);
 		this.navTo('search-results');
 	}
 
@@ -57,7 +56,7 @@ export default class Search extends Base {
 	}
 
 	onQueryChange(event) {
-		this.runAction(types.SET_SEARCH_QUERY, event.nativeEvent.text);
+		this.runAction(this.types.SET_SEARCH_QUERY, event.nativeEvent.text);
 	}
 
 	onGoPress() {
@@ -70,7 +69,7 @@ export default class Search extends Base {
 
 	onLocationPress() {
 		this.gps.getCurrentPosition(({ coords }) => {
-			this.runAction(types.SET_SEARCH_QUERY, `${coords.latitude},${coords.longitude}`);
+			this.runAction(this.types.SET_SEARCH_QUERY, `${coords.latitude},${coords.longitude}`);
 			this.navToResults(this.props.QueryParam.GPS);
 		});
 	}

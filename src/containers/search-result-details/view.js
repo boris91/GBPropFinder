@@ -1,16 +1,14 @@
 import React from 'react';
 
 import Base from '../base/view';
-import convertResult from '../../modules/search/result-converter';
 import * as _ from './styles';
 
 const { Div, Img, Txt } = Base.components;
 
 export default class SearchResultDetails extends Base {
 	render() {
-		const {
-			title, uri, summary, price, attrs
-		} = convertResult(this.storeState.search.selectedResult);
+		const { results, selectedResultId } = this.storeState.search;
+		const { title, uri, summary, price, attrs } = results.find(result => result.id === selectedResultId);
 
 		return (
 			<Div style={_.container}>

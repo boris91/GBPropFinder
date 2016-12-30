@@ -1,4 +1,5 @@
 export default data => ({
+	id: data.lister_url.split('/')[4],
 	title: data.title,
 	uri: data.img_url,
 	summary: data.summary,

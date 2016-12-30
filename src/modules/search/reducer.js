@@ -1,5 +1,6 @@
 import types from './types';
 import initialState from './initial-state';
+import convertResult from './result-converter';
 
 export default (state = initialState, action) => {
 	switch (action.type) {
@@ -24,7 +25,7 @@ export default (state = initialState, action) => {
 		case types.SELECT_SEARCH_RESULT:
 			return {
 				...state,
-				selectedResult: action.selectedResult
+				selectedResultId: action.selectedResultId
 			};
 
 		case types.SEND_SEARCH_REQUEST:
@@ -35,7 +36,7 @@ export default (state = initialState, action) => {
 				errorMessage: '',
 				resultsCount: 0,
 				results: null,
-				selectedResult: null
+				selectedResultId: ''
 			};
 
 		case types.RECEIVE_SEARCH_SUCCESS:
@@ -45,7 +46,7 @@ export default (state = initialState, action) => {
 				pending: false,
 				pagesCount,
 				resultsCount,
-				results
+				results: results.map(convertResult)
 			};
 
 		case types.RECEIVE_SEARCH_ERROR:

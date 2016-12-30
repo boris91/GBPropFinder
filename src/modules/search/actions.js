@@ -23,10 +23,10 @@ export default {
 		});
 	},
 
-	[types.SELECT_SEARCH_RESULT](dispatch, selectedResult) {
+	[types.SELECT_SEARCH_RESULT](dispatch, selectedResultId) {
 		dispatch({
 			type: types.SELECT_SEARCH_RESULT,
-			selectedResult
+			selectedResultId
 		});
 	},
 

@@ -59,10 +59,10 @@ export default class SearchResults extends Base {
 	}
 
 	renderRow(data, sectionId, rowId) {
-		const { img_url: uri, price_formatted: price, title } = data;
+		const { id, uri, price, title } = data;
 
 		return (
-			<Touch onPress={() => this.onRowPress(data)} underlayColor="#dddddd">
+			<Touch onPress={() => this.onRowPress(id)} underlayColor="#dddddd">
 				<Div>
 					<Div style={_.result}>
 						<Img style={_.resultThumb} source={{ uri }}/>
@@ -107,8 +107,8 @@ export default class SearchResults extends Base {
 		this.runAction(this.types.RECEIVE_SEARCH_ERROR, this.props.requestFailMessage);
 	}
 
-	onRowPress(searchResult) {
-		this.runAction(this.types.SELECT_SEARCH_RESULT, searchResult);
+	onRowPress(resultId) {
+		this.runAction(this.types.SELECT_SEARCH_RESULT, resultId);
 		this.navTo('search-result-details');
 	}
 

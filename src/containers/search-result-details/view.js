@@ -9,7 +9,7 @@ const { Div, Img, Txt } = Base.components;
 export default class SearchResultDetails extends Base {
 	render() {
 		const {
-			type, title, uri, summary, price, bedrooms, bathrooms
+			title, uri, summary, price, attrs
 		} = convertResult(this.storeState.search.selectedResult);
 
 		return (
@@ -19,11 +19,7 @@ export default class SearchResultDetails extends Base {
 					<Txt style={_.price}>{price}</Txt>
 					<Txt style={_.title}>{title}</Txt>
 				</Div>
-				<Txt style={_.attrs}>
-					{type}
-					{bedrooms}
-					{bathrooms}
-				</Txt>
+				<Txt style={_.attrs}>{attrs}</Txt>
 				<Div style={_.separator}/>
 				<Txt style={_.summary}>{summary}</Txt>
 			</Div>

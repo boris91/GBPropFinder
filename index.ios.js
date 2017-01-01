@@ -1,5 +1,4 @@
-import React from 'react';
-import RN from 'react-native';
+import { AppRegistry } from 'react-native';
 import App from './src/app/index';
 
-RN.AppRegistry.registerComponent('mios', () => App);
+AppRegistry.registerComponent('mios', () => App({ ios: true, android: false }));

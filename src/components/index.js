@@ -1,12 +1,14 @@
 import {
 	ActivityIndicator,
 	Image,
+	Navigator,
 	NavigatorIOS,
 	Text,
 	TouchableHighlight,
 	View
 } from 'react-native';
 import Map from 'react-native-maps';
+import { Provider } from 'react-redux';
 
 import Btn from './btn/view';
 import Fld from './fld/view';
@@ -21,8 +23,10 @@ export {
 	Image as Img,
 	List,
 	Map,
-	NavigatorIOS as Nav,
+	Navigator as NavAndroid,
+	NavigatorIOS as NavIos,
 	Pager,
+	Provider,
 	Pwd,
 	Text as Txt,
 	TouchableHighlight as Touch,

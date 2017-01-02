@@ -1,5 +1,4 @@
-import React from 'react';
-import { Fld } from '../index';
+import { Fld, React } from '../index';
 
 export default props => (
 	<Fld {...props} secureTextEntry={true}>{props.children}</Fld>

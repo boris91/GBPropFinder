@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { NavAndroid, NavIos, Provider } from '../components/index';
+import { NavAndroid, NavIos, Provider, React } from '../components/index';
 import routes from './routes';
 import store from './store/index';
 

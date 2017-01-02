@@ -1,6 +1,5 @@
-import React from 'react';
+import { Btn, Div, React, Txt } from '../index';
 
-import { Btn, Div, Txt } from '../index';
 import * as _ from './styles';
 
 export default class Pager extends React.Component {

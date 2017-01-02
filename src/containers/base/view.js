@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 
 import routes from '../../app/routes';
@@ -6,6 +5,8 @@ import config from '../../app/configs/index';
 import * as components from '../../components/index';
 import actions from '../../app/actions';
 import types from '../../app/types';
+
+const { React } = components;
 
 export default class Base extends React.Component {
 	static config = config.containers;

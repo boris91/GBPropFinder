@@ -1,4 +1,3 @@
-import React from 'react';
 import {
 	ActivityIndicator,
 	Image,
@@ -29,7 +28,6 @@ export {
 	Pager,
 	Provider,
 	Pwd,
-	React,
 	Text as Txt,
 	TouchableHighlight as Touch,
 	View as Div

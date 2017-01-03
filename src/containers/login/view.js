@@ -1,7 +1,9 @@
+import React from 'react';
+
 import Base from '../base/view';
 import * as _ from './styles';
 
-const { Btn, Div, Fld, Pwd, React, Spinner, Txt } = Base.components;
+const { Btn, Div, Fld, Pwd, Spinner, Txt } = Base.components;
 
 export default class Login extends Base {
 	static defaultProps = Base.config.login.defaultProps;

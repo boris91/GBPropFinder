@@ -1,7 +1,9 @@
+import React from 'react';
+
 import Base from '../base/view';
 import * as _ from './styles';
 
-const { Btn, Div, React, Txt } = Base.components;
+const { Div, Txt, Btn } = Base.components;
 
 export default class Auth extends Base {
 	static defaultProps = Base.config.auth.defaultProps;

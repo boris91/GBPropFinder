@@ -1,7 +1,9 @@
+import React from 'react';
+
 import Base from '../base/view';
 import * as _ from './styles';
 
-const { Div, Img, React, Txt } = Base.components;
+const { Div, Img, Txt } = Base.components;
 
 export default class SearchResultDetails extends Base {
 	render() {

@@ -1,7 +1,9 @@
+import React from 'react';
+
 import Base from '../base/view';
 import * as _ from './styles';
 
-const { Btn, Div, Fld, Img, Map, React, Txt } = Base.components;
+const { Btn, Div, Fld, Img, Map, Txt } = Base.components;
 
 export default class Search extends Base {
 	static defaultProps = Base.config.search.defaultProps;

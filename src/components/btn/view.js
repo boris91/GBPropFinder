@@ -1,4 +1,5 @@
-import { React, Touch, Txt } from '../index';
+import React from 'react';
+import { Touch, Txt } from '../index';
 
 import * as _ from './styles';
 

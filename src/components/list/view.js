@@ -1,6 +1,5 @@
+import React from 'react';
 import { ListView } from 'react-native';
-
-import { React } from '../index';
 
 export default class List extends React.Component {
 	static defaultProps = {

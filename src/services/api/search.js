@@ -3,9 +3,10 @@ import configs from '../../app/configs/index';
 
 const config = configs.services.api.search;
 const cache = {};
+let lastCacheKey = '';
 
 export default (criteriaKey, criteriaValue, page = 1) => {
-	const cacheKey = `${criteriaKey}=${criteriaValue}&page=${page}`;
+	const cacheKey = lastCacheKey = `${criteriaKey}=${criteriaValue}&page=${page}`;
 	if (cache.hasOwnProperty(cacheKey)) {
 		return new Promise((resolve, reject) => {
 			if (cache[cacheKey]) {
@@ -32,9 +33,18 @@ export default (criteriaKey, criteriaValue, page = 1) => {
 					resultsCount: total_results,
 					results: listings.map(convertResult)
 				};
-				resolve(cache[cacheKey]);
+				if (cacheKey === lastCacheKey) {
+					resolve(cache[cacheKey]);
+				}
 			} else {
 				cache[cacheKey] = null;
+				if (cacheKey === lastCacheKey) {
+					reject();
+				}
+			}
+		}).catch(() => {
+			cache[cacheKey] = null;
+			if (cacheKey === lastCacheKey) {
 				reject();
 			}
 		});

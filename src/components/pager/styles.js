@@ -16,3 +16,8 @@ export const button = {
 	borderWidth: 1,
 	borderRadius: 8
 };
+
+export const spinner = {
+	flex: 4,
+	alignSelf: 'center'
+};

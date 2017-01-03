@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Btn, Div, Txt } from '../index';
+import { Btn, Div, Spinner, Txt } from '../index';
 import * as _ from './styles';
 
 export default class Pager extends React.Component {
@@ -13,12 +13,18 @@ export default class Pager extends React.Component {
 
 		const prevBtnDisabled = disabled || current <= 1;
 		const nextBtnDisabled = disabled || current === count;
-		const labelText = current <= count ? `${current}/${count}` : '...';
+		const labelText = `${current}/${count}`;
 
 		return (
 			<Div style={_container}>
 				<Btn style={_button} text="<" disabled={prevBtnDisabled} onPress={onPrevPress}/>
-				<Txt style={_label}>{labelText}</Txt>
+				{
+					disabled ? (
+						<Spinner style={_.spinner} size="small" color="#909090"/>
+					) : (
+						<Txt style={_label}>{labelText}</Txt>
+					)
+				}
 				<Btn style={_button} text=">" disabled={nextBtnDisabled} onPress={onNextPress}/>
 			</Div>
 		);

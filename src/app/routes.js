@@ -1,5 +1,3 @@
-import React from 'react';
-
 import * as containers from '../containers/index';
 
 const { Auth, Login, Search, SearchResultDetails, SearchResults } = containers;

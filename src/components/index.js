@@ -1,8 +1,6 @@
 import {
 	ActivityIndicator,
 	Image,
-	Navigator,
-	NavigatorIOS,
 	Text,
 	TouchableHighlight,
 	View
@@ -13,6 +11,7 @@ import { Provider } from 'react-redux';
 import Btn from './btn/view';
 import Fld from './fld/view';
 import List from './list/view';
+import Nav from './nav/view';
 import Pager from './pager/view';
 import Pwd from './pwd/view';
 
@@ -23,8 +22,7 @@ export {
 	Image as Img,
 	List,
 	Map,
-	Navigator as NavAndroid,
-	NavigatorIOS as NavIos,
+	Nav,
 	Pager,
 	Provider,
 	Pwd,

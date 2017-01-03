@@ -87,20 +87,8 @@ export default class SearchResults extends Base {
 			.catch(this.onDataFetchFailed);
 	}
 
-	onDataFetchSucceed({ request, response }) {
-		const { application_response_code, total_pages, page, total_results, listings } = response;
-
-		if ('1' === application_response_code.substr(0, 1)) {
-			const data = {
-				page,
-				pagesCount: total_pages + 1,
-				resultsCount: total_results,
-				results: listings
-			};
-			this.runAction(this.types.RECEIVE_SEARCH_SUCCESS, data);
-		} else {
-			this.onDataFetchFailed();
-		}
+	onDataFetchSucceed(data) {
+		this.runAction(this.types.RECEIVE_SEARCH_SUCCESS, data);
 	}
 
 	onDataFetchFailed() {

@@ -1,4 +1,4 @@
-import * as Api from './api';
+import Api from './api/index';
 import Xhr from './xhr';
 
 export {

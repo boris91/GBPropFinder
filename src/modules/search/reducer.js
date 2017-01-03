@@ -1,6 +1,5 @@
 import types from './types';
 import initialState from './initial-state';
-import convertResult from './result-converter';
 
 export default (state = initialState, action) => {
 	switch (action.type) {
@@ -46,7 +45,7 @@ export default (state = initialState, action) => {
 				pending: false,
 				pagesCount,
 				resultsCount,
-				results: results.map(convertResult)
+				results
 			};
 
 		case types.RECEIVE_SEARCH_ERROR:

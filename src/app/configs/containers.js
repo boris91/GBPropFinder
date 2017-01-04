@@ -1,17 +1,10 @@
 export const auth = {
 	defaultProps: {
-		title: 'Authenticate to the application',
-		loginBtnText: 'Log In'
-	}
-};
-
-export const login = {
-	defaultProps: {
 		title: 'Enter your credentials',
 		nickHolder: 'Nickname',
 		pwdHolder: 'Password',
 		btnText: 'Sign in',
-		errorMessage: 'Login failed: check your nickname & password for validity.',
+		errorMessage: 'Auth failed: check your nickname & password for validity.',
 		onSuccess() {},
 		onError() {}
 	}

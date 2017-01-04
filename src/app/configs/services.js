@@ -3,7 +3,7 @@ export const xhr = {
 };
 
 export const api = {
-	login: {
+	auth: {
 		nick: 'admin',
 		pwd: 'admin'
 	},

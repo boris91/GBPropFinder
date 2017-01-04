@@ -3,7 +3,7 @@ import React from 'react';
 import Base from '../base/view';
 import * as _ from './styles';
 
-const { Div, Txt, Btn } = Base.components;
+const { Btn, Div, Fld, Pwd, Spinner, Txt } = Base.components;
 
 export default class Auth extends Base {
 	static defaultProps = Base.config.auth.defaultProps;
@@ -11,35 +11,68 @@ export default class Auth extends Base {
 	constructor(props) {
 		super(props);
 
-		this.onLoginPress = this.onLoginPress.bind(this);
-		this.loginProps = {
-			onSuccess: this.onLoginSuccess.bind(this),
-			onError: this.onLoginError.bind(this)
-		};
+		this.onNickChange = this.onNickChange.bind(this);
+		this.onPwdChange = this.onPwdChange.bind(this);
+		this.onOkPress = this.onOkPress.bind(this);
+		this.onAuthSuccess = this.onAuthSuccess.bind(this);
+		this.onAuthError = this.onAuthError.bind(this);
 	}
 
 	render() {
-		const { title, loginBtnText } = this.props;
+		const { title, nickHolder, pwdHolder, btnText, errorMessage } = this.props;
+		const { pending, nick, pwd, error } = this.data.auth;
+
+		if (pending) {
+			return (
+				<Div style={_.container}>
+					<Spinner style={_.spinner} size="large" color="#909090"/>
+				</Div>
+			);
+		}
 
 		return (
 			<Div style={_.container}>
 				<Txt style={_.title}>{title}</Txt>
 				<Div style={_.row}>
-					<Btn style={_.button} text={loginBtnText} onPress={this.onLoginPress}/>
+					<Fld style={_.field} placeholder={nickHolder} value={nick} onChange={this.onNickChange}/>
 				</Div>
+				<Div style={_.row}>
+					<Pwd style={_.field} placeholder={pwdHolder} value={pwd} onChange={this.onPwdChange}/>
+				</Div>
+				<Div style={_.row}>
+					<Btn style={_.button} disabled={!nick || !pwd} text={btnText} onPress={this.onOkPress}/>
+				</Div>
+				{error ? (
+					<Div style={_.errorContainer}>
+						<Txt style={_.error}>{errorMessage}</Txt>
+					</Div>
+				) : null}
 			</Div>
 		);
 	}
 
-	onLoginPress() {
-		this.navTo('login', this.loginProps);
+	onNickChange(event) {
+		this.runAction(this.types.SET_AUTH_NICK, event.nativeEvent.text);
 	}
 
-	onLoginSuccess() {
-		this.navTo('search', null, true);
+	onPwdChange(event) {
+		this.runAction(this.types.SET_AUTH_PWD, event.nativeEvent.text);
 	}
 
-	onLoginError() {
-		//do nothing
+	onOkPress() {
+		const { nick, pwd } = this.data.auth;
+		this.runAction(this.types.SEND_AUTH_REQUEST, nick, pwd)
+			.then(this.onAuthSuccess)
+			.catch(this.onAuthError);
+	}
+
+	onAuthSuccess() {
+		this.runAction(this.types.RECEIVE_AUTH_SUCCESS);
+		this.props.onSuccess(this);
+	}
+
+	onAuthError() {
+		this.runAction(this.types.RECEIVE_AUTH_ERROR);
+		this.props.onError(this);
 	}
 };

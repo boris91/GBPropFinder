@@ -1,7 +1,7 @@
-import login from './login';
+import auth from './auth';
 import search from './search';
 
 export default {
-	login,
+	auth,
 	search
 };

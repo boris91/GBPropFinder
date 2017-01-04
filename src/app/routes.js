@@ -1,6 +1,5 @@
 import {
 	Auth,
-	Login,
 	Search,
 	SearchResultDetails,
 	SearchResults
@@ -9,11 +8,8 @@ import {
 export default [{
 	id: 'auth',
 	title: 'Auth',
-	component: Auth
-}, {
-	id: 'login',
-	title: 'Login',
-	component: Login
+	component: Auth,
+	passProps: { onSuccess(container) { container.navTo('search', null, true); } }
 }, {
 	id: 'search',
 	title: 'Search',

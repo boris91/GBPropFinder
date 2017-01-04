@@ -1,7 +1,7 @@
-import login from '../modules/login/actions';
+import auth from '../modules/auth/actions';
 import search from '../modules/search/actions';
 
 export default {
-	...login,
+	...auth,
 	...search
 };

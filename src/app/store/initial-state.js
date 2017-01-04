@@ -1,7 +1,7 @@
-import login from '../../modules/login/initial-state';
+import auth from '../../modules/auth/initial-state';
 import search from '../../modules/search/initial-state';
 
 export default {
-	login,
+	auth,
 	search
 };

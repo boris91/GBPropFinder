@@ -1,7 +1,7 @@
-import login from '../modules/login/types';
+import auth from '../modules/auth/types';
 import search from '../modules/search/types';
 
 export default {
-	...login,
+	...auth,
 	...search
 };

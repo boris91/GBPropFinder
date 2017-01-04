@@ -3,32 +3,32 @@ import initialState from './initial-state';
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case types.SET_LOGIN_NICK:
+		case types.SET_AUTH_NICK:
 			return {
 				...state,
 				nick: action.nick
 			};
 
-		case types.SET_LOGIN_PWD:
+		case types.SET_AUTH_PWD:
 			return {
 				...state,
 				pwd: action.pwd
 			};
 
-		case types.SEND_LOGIN_REQUEST:
+		case types.SEND_AUTH_REQUEST:
 			return {
 				...state,
 				pending: true,
 				error: false
 			};
 
-		case types.RECEIVE_LOGIN_SUCCESS:
+		case types.RECEIVE_AUTH_SUCCESS:
 			return {
 				...state,
 				pending: false
 			};
 
-		case types.RECEIVE_LOGIN_ERROR:
+		case types.RECEIVE_AUTH_ERROR:
 			return {
 				...state,
 				pending: false,

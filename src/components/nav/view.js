@@ -33,9 +33,22 @@ class Nav extends React.Component {
 	}
 
 	renderScene(route, navigator) {
-		return (
-			<route.component {...route.passProps} navigator={navigator} storeState={this.props.storeState} dispatch={this.props.dispatch}/>
+		const { auth, storeState, dispatch } = this.props;
+		const sceneProps = { navigator, storeState, dispatch };
+
+		return (!route.secure || storeState.auth.complete) ? (
+			<route.component {...route.passProps} {...sceneProps}/>
+		) : (
+			<auth.component {...sceneProps} onSuccess={this.getAuthSuccessHandler(route)}/>
 		);
+	}
+
+	getAuthSuccessHandler(route, sceneProps) {
+		return container => {
+			container
+				.navBack()
+				.navTo(route.id, { ...route.passProps, ...sceneProps });
+		};
 	}
 
 	renderNavbarTitle(route, navigator, index, navState) {

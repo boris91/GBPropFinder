@@ -18,6 +18,7 @@ export default (state = initialState, action) => {
 		case types.SEND_AUTH_REQUEST:
 			return {
 				...state,
+				complete: false,
 				pending: true,
 				error: false
 			};
@@ -25,6 +26,7 @@ export default (state = initialState, action) => {
 		case types.RECEIVE_AUTH_SUCCESS:
 			return {
 				...state,
+				complete: true,
 				pending: false
 			};
 

@@ -16,6 +16,11 @@ export default class Base extends React.Component {
 		return actions[actionName](this.props.dispatch, ...args);
 	}
 
+	navBack() {
+		this.props.navigator.jumpBack();
+		return this;
+	}
+
 	navTo(routeId, passProps = null, resetStack = false) {
 		const route = routes.find(route => route.id === routeId);
 		if (route) {
@@ -24,5 +29,6 @@ export default class Base extends React.Component {
 		} else {
 			throw `Route with ID='${routeId}' doesn't exist.`;
 		}
+		return this;
 	}
 };

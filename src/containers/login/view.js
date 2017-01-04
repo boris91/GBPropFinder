@@ -20,7 +20,7 @@ export default class Login extends Base {
 
 	render() {
 		const { title, nickHolder, pwdHolder, btnText, errorMessage } = this.props;
-		const { pending, nick, pwd, error } = this.storeState.login;
+		const { pending, nick, pwd, error } = this.data.login;
 
 		if (pending) {
 			return (
@@ -60,7 +60,7 @@ export default class Login extends Base {
 	}
 
 	onOkPress() {
-		const { nick, pwd } = this.storeState.login;
+		const { nick, pwd } = this.data.login;
 		this.runAction(this.types.SEND_LOGIN_REQUEST, nick, pwd)
 			.then(this.onLoginSuccess)
 			.catch(this.onLoginError);

@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import routes from '../../app/routes';
 import config from '../../app/configs/index';
@@ -10,12 +9,8 @@ import types from '../../app/types';
 export default class Base extends React.Component {
 	static config = config.containers;
 	static components = components;
-	static mapStateToProps(state, ownProps) { return { storeStateContainer: state }; }
-	static mapDispatchToProps(dispatch, ownProps) { return { dispatch }; }
-	static connect() { return connect(this.mapStateToProps, this.mapDispatchToProps)(this); }
-
-	get storeState() { return this.props.storeStateContainer; }
 	get types() { return types; }
+	get data() { return this.props.storeState; }
 
 	runAction(actionName, ...args) {
 		return actions[actionName](this.props.dispatch, ...args);

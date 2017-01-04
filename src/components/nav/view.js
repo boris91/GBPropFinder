@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Navigator } from 'react-native';
 
 import { Btn, Txt } from '../index';
 import * as _ from './styles';
 
-export default class Nav extends React.Component {
+class Nav extends React.Component {
 	constructor(props) {
 		super(props);
 		this.renderScene = this.renderScene.bind(this);
@@ -33,7 +34,7 @@ export default class Nav extends React.Component {
 
 	renderScene(route, navigator) {
 		return (
-			<route.component {...route.passProps} navigator={navigator}/>
+			<route.component {...route.passProps} navigator={navigator} storeState={this.props.storeState} dispatch={this.props.dispatch}/>
 		);
 	}
 
@@ -57,3 +58,5 @@ export default class Nav extends React.Component {
 		return null;
 	}
 };
+
+export default connect(state => ({ storeState: state }), dispatch => ({ dispatch }))(Nav);

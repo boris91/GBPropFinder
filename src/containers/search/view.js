@@ -19,7 +19,7 @@ export default class Search extends Base {
 
 	render() {
 		const { title, mapInitialRegion, queryHolder, imageSrc } = this.props;
-		const { query, error } = this.storeState.search;
+		const { query, error } = this.data.search;
 
 		return (
 			<Div style={_.container}>
@@ -44,7 +44,8 @@ export default class Search extends Base {
 	}
 
 	isQueryGpsLocation() {
-		const gpsPosition = this.storeState.search.query.split(',');
+		const { query } = this.data.search;
+		const gpsPosition = query.split(',');
 		if (2 === gpsPosition.length) {
 			let latitude = parseFloat(gpsPosition[0]);
 			let longitude = parseFloat(gpsPosition[1]);

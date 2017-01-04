@@ -1,6 +1,10 @@
-import * as containers from '../containers/index';
-
-const { Auth, Login, Search, SearchResultDetails, SearchResults } = containers;
+import {
+	Auth,
+	Login,
+	Search,
+	SearchResultDetails,
+	SearchResults
+} from '../containers/index';
 
 export default [{
 	id: 'auth',

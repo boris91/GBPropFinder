@@ -24,7 +24,7 @@ export default class SearchResults extends Base {
 
 	render() {
 		const { noResultsMessage } = this.props;
-		const { pending, error, errorMessage, results, page, pagesCount } = this.storeState.search;
+		const { pending, error, errorMessage, results, page, pagesCount } = this.data.search;
 		const pager = <Pager disabled={pending} btnStyle={_.pagerButton} current={page} count={pagesCount} onPrevPress={this.onPagerPrevPress} onNextPress={this.onPagerNextPress}/>
 
 		if (results) {
@@ -78,7 +78,7 @@ export default class SearchResults extends Base {
 	}
 
 	fetchData(page = 1) {
-		const { criteria, query } = this.storeState.search;
+		const { criteria, query } = this.data.search;
 
 		this.runAction(this.types.SET_SEARCH_RESULTS_PAGE, page);
 
@@ -101,10 +101,12 @@ export default class SearchResults extends Base {
 	}
 
 	onPagerPrevPress() {
-		this.fetchData(this.storeState.search.page - 1);
+		const { page } = this.data.search;
+		this.fetchData(page - 1);
 	}
 
 	onPagerNextPress() {
-		this.fetchData(this.storeState.search.page + 1);
+		const { page } = this.data.search;
+		this.fetchData(page + 1);
 	}
 };

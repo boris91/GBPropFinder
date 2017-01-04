@@ -7,7 +7,7 @@ const { Div, Img, Txt } = Base.components;
 
 export default class SearchResultDetails extends Base {
 	render() {
-		const { results, selectedResultId } = this.storeState.search;
+		const { results, selectedResultId } = this.data.search;
 		const { title, uri, summary, price, attrs } = results.find(result => result.id === selectedResultId);
 
 		return (

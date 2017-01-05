@@ -1,34 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Navigator } from 'react-native';
 
-import { Btn, Txt } from '../index';
+import { Btn, Nav, Navbar, Txt } from '../../components/index';
 import * as _ from './styles';
 
-class Nav extends React.Component {
+class Navi extends React.Component {
 	constructor(props) {
 		super(props);
 		this.renderScene = this.renderScene.bind(this);
-	}
-
-	get navbar() {
-		return (
-			<Navigator.NavigationBar style={_.navbar} routeMapper={this.navbarRouteMapper}/>
-		);
-	}
-
-	get navbarRouteMapper() {
-		return {
-			Title: this.renderNavbarTitle,
-			LeftButton: this.renderNavbarLeftButton,
-			RightButton: this.renderNavbarRightButton
+		this.navbarRouteMapper = {
+			Title: this.renderNavbarTitle.bind(this),
+			LeftButton: this.renderNavbarLeftButton.bind(this),
+			RightButton: this.renderNavbarRightButton.bind(this)
 		};
 	}
 
 	render() {
 		const { face } = this.props;
+		const navbar = <Navbar style={_.navbar} routeMapper={this.navbarRouteMapper}/>;
+
 		return (
-			<Navigator style={_.navigator} initialRoute={face} renderScene={this.renderScene} navigationBar={this.navbar}/>
+			<Nav style={_.navigator} initialRoute={face} renderScene={this.renderScene} navigationBar={navbar}/>
 		);
 	}
 
@@ -39,16 +31,8 @@ class Nav extends React.Component {
 		return (!route.secure || storeState.auth.complete) ? (
 			<route.component {...route.passProps} {...sceneProps}/>
 		) : (
-			<auth.component {...sceneProps} onSuccess={this.getAuthSuccessHandler(route)}/>
+			<auth.component {...sceneProps}/>
 		);
-	}
-
-	getAuthSuccessHandler(route, sceneProps) {
-		return container => {
-			container
-				.navBack()
-				.navTo(route.id, { ...route.passProps, ...sceneProps });
-		};
 	}
 
 	renderNavbarTitle(route, navigator, index, navState) {
@@ -72,4 +56,4 @@ class Nav extends React.Component {
 	}
 };
 
-export default connect(state => ({ storeState: state }), dispatch => ({ dispatch }))(Nav);
+export default connect(state => ({ storeState: state }), dispatch => ({ dispatch }))(Navi);

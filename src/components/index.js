@@ -1,6 +1,7 @@
 import {
 	ActivityIndicator,
 	Image,
+	Navigator,
 	Text,
 	TouchableHighlight,
 	View
@@ -11,9 +12,10 @@ import { Provider } from 'react-redux';
 import Btn from './btn/view';
 import Fld from './fld/view';
 import List from './list/view';
-import Nav from './nav/view';
 import Pager from './pager/view';
 import Pwd from './pwd/view';
+
+const Navbar = Navigator.NavigationBar;
 
 export {
 	ActivityIndicator as Spinner,
@@ -22,7 +24,8 @@ export {
 	Image as Img,
 	List,
 	Map,
-	Nav,
+	Navigator as Nav,
+	Navbar,
 	Pager,
 	Provider,
 	Pwd,

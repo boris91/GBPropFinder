@@ -17,7 +17,13 @@ export default class Base extends React.Component {
 	}
 
 	navBack() {
-		this.props.navigator.jumpBack();
+		const { navigator } = this.props;
+		const { state: { presentedIndex, routeStack } } = navigator;
+
+		if (presentedIndex > routeStack.length - 1) {
+			navigator.jumpBack();
+		}
+
 		return this;
 	}
 

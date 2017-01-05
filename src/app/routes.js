@@ -8,8 +8,7 @@ import {
 export const auth = {
 	id: 'auth',
 	title: 'Auth',
-	component: Auth,
-	passProps: { onSuccess(container) { container.navTo('search', null, true); } }
+	component: Auth
 };
 
 export const face = {

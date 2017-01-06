@@ -21,7 +21,7 @@ export default class Xhr {
 		return this.send('DELETE', path, params);
 	}
 
-	static send(method, path, params = {}) {
+	static async send(method, path, params = {}) {
 		const route = this.host ? `${this.host}/${path}` : path;
 		const query = this._getStrQuery(this.query, params.query);
 		const url = `${route}?${query}`;
@@ -35,9 +35,11 @@ export default class Xhr {
 		};
 		//console.log({ url, options });
 
-		return fetch(url, options)
-			.then(response => response.json())
-			.catch(error => { throw error; });
+		try {
+			return await (await fetch(url, options)).json();
+		} catch (exc) {
+			throw exc.message;
+		}
 	}
 
 	static _getStrQuery(...objQueries) {

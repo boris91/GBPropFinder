@@ -14,8 +14,6 @@ export default class Auth extends Base {
 		this.onNickChange = this.onNickChange.bind(this);
 		this.onPwdChange = this.onPwdChange.bind(this);
 		this.onOkPress = this.onOkPress.bind(this);
-		this.onAuthSuccess = this.onAuthSuccess.bind(this);
-		this.onAuthError = this.onAuthError.bind(this);
 	}
 
 	render() {
@@ -59,20 +57,23 @@ export default class Auth extends Base {
 		this.runAction(this.types.SET_AUTH_PWD, event.nativeEvent.text);
 	}
 
-	onOkPress() {
+	async onOkPress() {
 		const { nick, pwd } = this.data.auth;
-		this.runAction(this.types.SEND_AUTH_REQUEST, nick, pwd)
-			.then(this.onAuthSuccess)
-			.catch(this.onAuthError);
+		try {
+			await this.runAction(this.types.SEND_AUTH_REQUEST, nick, pwd);
+			this.onAuthSuccess();
+		} catch (exc) {
+			this.onAuthError();
+		}
 	}
 
 	onAuthSuccess() {
 		this.runAction(this.types.RECEIVE_AUTH_SUCCESS);
-		this.props.onSuccess(this);
+		this.props.onSuccess();
 	}
 
 	onAuthError() {
 		this.runAction(this.types.RECEIVE_AUTH_ERROR);
-		this.props.onError(this);
+		this.props.onError();
 	}
 };

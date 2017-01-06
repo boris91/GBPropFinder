@@ -5,14 +5,16 @@ const config = configs.services.api.search;
 
 export default (query, page = 1) => {
 	const criteria = isQueryGpsLocation(query) ? config.criteriaTypes.GPS : config.criteriaTypes.PLACE;
-	return new Promise((resolve, reject) => {
-		Xhr.get('', {
-			query: {
-				...config.queryParams,
-				page,
-				[criteria]: query
-			}
-		}).then(({ request, response }) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { request, response } = await Xhr.get('', {
+				query: {
+					...config.queryParams,
+					page,
+					[criteria]: query
+				}
+			});
+
 			if ('1' === response.application_response_code.substr(0, 1)) {
 				const { total_pages, page, listings } = response;
 				resolve({
@@ -23,7 +25,9 @@ export default (query, page = 1) => {
 			} else {
 				reject();
 			}
-		}).catch(() => reject());
+		} catch (exc) {
+			reject();
+		}
 	});
 };
 

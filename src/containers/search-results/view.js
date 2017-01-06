@@ -12,8 +12,6 @@ export default class SearchResults extends Base {
 		super(props);
 
 		this.renderRow = this.renderRow.bind(this);
-		this.onSearchRequestSucceed = this.onSearchRequestSucceed.bind(this);
-		this.onSearchRequestFailed = this.onSearchRequestFailed.bind(this);
 		this.onPagerPrevPress = this.onPagerPrevPress.bind(this);
 		this.onPagerNextPress = this.onPagerNextPress.bind(this);
 	}
@@ -85,7 +83,7 @@ export default class SearchResults extends Base {
 		);
 	}
 
-	sendSearchRequest(page) {
+	async sendSearchRequest(page) {
 		const { query, results } = this.data.search;
 		const resultsByQuery = results[query];
 		const propsList = resultsByQuery && resultsByQuery[page];
@@ -97,9 +95,12 @@ export default class SearchResults extends Base {
 				results: propsList
 			});
 		} else {
-			this.runAction(this.types.SEND_SEARCH_REQUEST, query, page)
-				.then(this.onSearchRequestSucceed)
-				.catch(this.onSearchRequestFailed);
+			try {
+				const data = await this.runAction(this.types.SEND_SEARCH_REQUEST, query, page);
+				this.onSearchRequestSucceed(data);
+			} catch (exc) {
+				this.onSearchRequestFailed();
+			}
 		}
 	}
 

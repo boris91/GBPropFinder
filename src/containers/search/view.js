@@ -11,8 +11,9 @@ export default class Search extends Base {
 	constructor(props) {
 		super(props);
 
-		this.gps = navigator.geolocation;
+		this.onMapPress = this.onMapPress.bind(this);
 		this.onQueryChange = this.onQueryChange.bind(this);
+		this.onSearchByGps = this.onSearchByGps.bind(this);
 		this.onGoPress = this.onGoPress.bind(this);
 		this.onLocationPress = this.onLocationPress.bind(this);
 	}
@@ -24,7 +25,7 @@ export default class Search extends Base {
 		return (
 			<Div style={_.container}>
 				<Txt style={_.title}>{title}</Txt>
-				<Map style={_.map} initialRegion={mapInitialRegion}/>
+				<Map style={_.map} initialRegion={mapInitialRegion} onPress={this.onMapPress}/>
 				<Div style={_.flowRight}>
 					<Fld style={_.queryField} placeholder={queryHolder} value={query} onChange={this.onQueryChange}/>
 					<Btn style={_.button} text="Go" onPress={this.onGoPress}/>
@@ -38,8 +39,18 @@ export default class Search extends Base {
 		);
 	}
 
+	onSearchByGps(coords) {
+		const { latitude, longitude } = coords;
+		this.runAction(this.types.SET_SEARCH_QUERY, `${latitude},${longitude}`);
+		this.navTo('search-results');
+	}
+
 	onQueryChange(event) {
 		this.runAction(this.types.SET_SEARCH_QUERY, event.nativeEvent.text);
+	}
+
+	onMapPress(event) {
+		this.onSearchByGps(event.nativeEvent.coordinate);
 	}
 
 	onGoPress() {
@@ -47,9 +58,6 @@ export default class Search extends Base {
 	}
 
 	onLocationPress() {
-		this.gps.getCurrentPosition(({ coords }) => {
-			this.runAction(this.types.SET_SEARCH_QUERY, `${coords.latitude},${coords.longitude}`);
-			this.navTo('search-results');
-		});
+		navigator.geolocation.getCurrentPosition(this.onSearchByGps);
 	}
 };

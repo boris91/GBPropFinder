@@ -3,12 +3,11 @@ import React from 'react';
 import routes from '../../app/routes';
 import config from '../../app/configs/index';
 import * as components from '../../components/index';
-import types from '../../app/types';
 
 export default class Base extends React.Component {
 	static config = config.containers;
 	static components = components;
-	get types() { return types; }
+	get types() { return this.props.actionTypes; }
 	get data() { return this.props.storeState; }
 
 	runAction(actionName, ...args) {

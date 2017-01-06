@@ -38,40 +38,18 @@ export default class Search extends Base {
 		);
 	}
 
-	navToResults(criteria) {
-		this.runAction(this.types.SET_SEARCH_CRITERIA, criteria);
-		this.navTo('search-results');
-	}
-
-	isQueryGpsLocation() {
-		const { query } = this.data.search;
-		const gpsPosition = query.split(',');
-		if (2 === gpsPosition.length) {
-			let latitude = parseFloat(gpsPosition[0]);
-			let longitude = parseFloat(gpsPosition[1]);
-			if (!isNaN(latitude) && !isNaN(longitude)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	onQueryChange(event) {
 		this.runAction(this.types.SET_SEARCH_QUERY, event.nativeEvent.text);
 	}
 
 	onGoPress() {
-		if (this.isQueryGpsLocation()) {
-			this.navToResults(this.props.QueryParam.GPS);
-		} else {
-			this.navToResults(this.props.QueryParam.PLACE);
-		}
+		this.navTo('search-results');
 	}
 
 	onLocationPress() {
 		this.gps.getCurrentPosition(({ coords }) => {
 			this.runAction(this.types.SET_SEARCH_QUERY, `${coords.latitude},${coords.longitude}`);
-			this.navToResults(this.props.QueryParam.GPS);
+			this.navTo('search-results');
 		});
 	}
 };

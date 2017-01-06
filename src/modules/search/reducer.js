@@ -3,22 +3,18 @@ import initialState from './initial-state';
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case types.SET_SEARCH_CRITERIA:
-			return {
-				...state,
-				criteria: action.criteria
-			};
-
 		case types.SET_SEARCH_QUERY:
 			return {
 				...state,
 				query: action.query
 			};
 
-		case types.SET_SEARCH_RESULTS_PAGE:
+		case types.RESET_SEARCH_TEMP_DATA:
 			return {
 				...state,
-				page: action.page
+				error: initialState.error,
+				errorMessage: initialState.errorMessage,
+				page: initialState.page
 			};
 
 		case types.SELECT_SEARCH_RESULT:
@@ -30,22 +26,27 @@ export default (state = initialState, action) => {
 		case types.SEND_SEARCH_REQUEST:
 			return {
 				...state,
+				page: action.page,
 				pending: true,
 				error: false,
 				errorMessage: '',
-				resultsCount: 0,
-				results: null,
 				selectedResultId: ''
 			};
 
 		case types.RECEIVE_SEARCH_SUCCESS:
-			const { pagesCount, resultsCount, results } = action;
+			const { page, pagesCount, results } = action;
 			return {
 				...state,
 				pending: false,
-				pagesCount,
-				resultsCount,
-				results
+				page,
+				results: {
+					...state.results,
+					[state.query]: {
+						...state.results[state.query],
+						pagesCount,
+						[page]: results
+					}
+				}
 			};
 
 		case types.RECEIVE_SEARCH_ERROR:

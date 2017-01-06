@@ -2,13 +2,6 @@ import types from './types';
 import { Api } from '../../services/index';
 
 export default {
-	[types.SET_SEARCH_CRITERIA](dispatch, criteria) {
-		dispatch({
-			type: types.SET_SEARCH_CRITERIA,
-			criteria
-		});
-	},
-
 	[types.SET_SEARCH_QUERY](dispatch, query) {
 		dispatch({
 			type: types.SET_SEARCH_QUERY,
@@ -16,10 +9,9 @@ export default {
 		});
 	},
 
-	[types.SET_SEARCH_RESULTS_PAGE](dispatch, page) {
+	[types.RESET_SEARCH_TEMP_DATA](dispatch) {
 		dispatch({
-			type: types.SET_SEARCH_RESULTS_PAGE,
-			page
+			type: types.RESET_SEARCH_TEMP_DATA
 		});
 	},
 
@@ -30,22 +22,20 @@ export default {
 		});
 	},
 
-	[types.SEND_SEARCH_REQUEST](dispatch, criteria, query, page) {
+	[types.SEND_SEARCH_REQUEST](dispatch, query, page) {
 		dispatch({
 			type: types.SEND_SEARCH_REQUEST,
-			criteria,
 			query,
 			page
 		});
-		return Api.search(criteria, query, page);
+		return Api.search(query, page);
 	},
 
-	[types.RECEIVE_SEARCH_SUCCESS](dispatch, { page, pagesCount, resultsCount, results }) {
+	[types.RECEIVE_SEARCH_SUCCESS](dispatch, { page, pagesCount, results }) {
 		dispatch({
 			type: types.RECEIVE_SEARCH_SUCCESS,
 			page,
 			pagesCount,
-			resultsCount,
 			results
 		});
 	},

@@ -18,10 +18,6 @@ export const search = {
 		invalidQueryMessage: 'Query\'s invalid. Please, enter the correct one.',
 		invalidGpsLocation: 'GPS location couldn\'t be obtained properly. Try again later.',
 		noDataMessage: 'No data provided. Try again later.',
-		QueryParam: {
-			PLACE: 'place_name',
-			GPS: 'centre_point'
-		},
 		mapInitialRegion: {
 			latitude: 51.5074,
 			longitude: 0.1278,

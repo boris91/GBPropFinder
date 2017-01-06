@@ -12,23 +12,31 @@ export default class SearchResults extends Base {
 		super(props);
 
 		this.renderRow = this.renderRow.bind(this);
-		this.onDataFetchSucceed = this.onDataFetchSucceed.bind(this);
-		this.onDataFetchFailed = this.onDataFetchFailed.bind(this);
+		this.onSearchRequestSucceed = this.onSearchRequestSucceed.bind(this);
+		this.onSearchRequestFailed = this.onSearchRequestFailed.bind(this);
 		this.onPagerPrevPress = this.onPagerPrevPress.bind(this);
 		this.onPagerNextPress = this.onPagerNextPress.bind(this);
 	}
 
 	componentDidMount() {
-		this.fetchData();
+		this.sendSearchRequest(1);
+	}
+
+	componentWillUnmount() {
+		this.runAction(this.types.RESET_SEARCH_TEMP_DATA);
 	}
 
 	render() {
 		const { noResultsMessage } = this.props;
-		const { pending, error, errorMessage, results, page, pagesCount } = this.data.search;
-		const pager = <Pager disabled={pending} btnStyle={_.pagerButton} current={page} count={pagesCount} onPrevPress={this.onPagerPrevPress} onNextPress={this.onPagerNextPress}/>
+		const { query, pending, error, errorMessage, results, page } = this.data.search;
+		const requestedResults = results[query] && results[query][page];
+		const pagesCount = results[query] && results[query].pagesCount || 1;
+		const loading = pending || !requestedResults;
+		const pager = <Pager disabled={loading} btnStyle={_.pagerButton} current={page} count={pagesCount}
+							onPrevPress={this.onPagerPrevPress} onNextPress={this.onPagerNextPress}/>;
 
-		if (results) {
-			if (0 === results.length) {
+		if (requestedResults) {
+			if (0 === requestedResults.length) {
 				return (
 					<Div style={_.container}>
 						<Txt style={_.message}>{noResultsMessage}</Txt>
@@ -38,7 +46,7 @@ export default class SearchResults extends Base {
 				return (
 					<Div style={_.container}>
 						{pager}
-						<List rows={results} renderRow={this.renderRow} dataSrcAtrs={this.dataSrcAttrs}/>
+						<List rows={requestedResults} renderRow={this.renderRow} dataSrcAtrs={this.dataSrcAttrs}/>
 					</Div>
 				);
 			}
@@ -48,7 +56,7 @@ export default class SearchResults extends Base {
 					<Txt style={_.error}>{errorMessage}</Txt>
 				</Div>
 			);
-		} else if (pending) {
+		} else if (loading) {
 			return (
 				<Div style={_.container}>
 					{pager}
@@ -77,21 +85,29 @@ export default class SearchResults extends Base {
 		);
 	}
 
-	fetchData(page = 1) {
-		const { criteria, query } = this.data.search;
+	sendSearchRequest(page) {
+		const { query, results } = this.data.search;
+		const resultsByQuery = results[query];
+		const propsList = resultsByQuery && resultsByQuery[page];
 
-		this.runAction(this.types.SET_SEARCH_RESULTS_PAGE, page);
-
-		return this.runAction(this.types.SEND_SEARCH_REQUEST, criteria, query, page)
-			.then(this.onDataFetchSucceed)
-			.catch(this.onDataFetchFailed);
+		if (propsList) {
+			this.onSearchRequestSucceed({
+				page,
+				pagesCount: resultsByQuery.pagesCount,
+				results: propsList
+			});
+		} else {
+			this.runAction(this.types.SEND_SEARCH_REQUEST, query, page)
+				.then(this.onSearchRequestSucceed)
+				.catch(this.onSearchRequestFailed);
+		}
 	}
 
-	onDataFetchSucceed(data) {
+	onSearchRequestSucceed(data) {
 		this.runAction(this.types.RECEIVE_SEARCH_SUCCESS, data);
 	}
 
-	onDataFetchFailed() {
+	onSearchRequestFailed() {
 		this.runAction(this.types.RECEIVE_SEARCH_ERROR, this.props.requestFailMessage);
 	}
 
@@ -102,11 +118,11 @@ export default class SearchResults extends Base {
 
 	onPagerPrevPress() {
 		const { page } = this.data.search;
-		this.fetchData(page - 1);
+		this.sendSearchRequest(page - 1);
 	}
 
 	onPagerNextPress() {
 		const { page } = this.data.search;
-		this.fetchData(page + 1);
+		this.sendSearchRequest(page + 1);
 	}
 };

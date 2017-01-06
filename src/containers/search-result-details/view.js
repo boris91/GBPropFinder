@@ -7,8 +7,8 @@ const { Div, Img, Txt } = Base.components;
 
 export default class SearchResultDetails extends Base {
 	render() {
-		const { results, selectedResultId } = this.data.search;
-		const { title, uri, summary, price, attrs } = results.find(result => result.id === selectedResultId);
+		const { query, page, results, selectedResultId } = this.data.search;
+		const { title, uri, summary, price, attrs } = results[query][page].find(result => result.id === selectedResultId);
 
 		return (
 			<Div style={_.container}>

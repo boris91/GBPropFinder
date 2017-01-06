@@ -8,6 +8,10 @@ export const api = {
 		pwd: 'admin'
 	},
 	search: {
+		criteriaTypes: {
+			PLACE: 'place_name',
+			GPS: 'centre_point'
+		},
 		queryParams: {
 			action: 'search_listings',
 			encoding: 'json'

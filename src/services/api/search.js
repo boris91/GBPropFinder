@@ -3,7 +3,7 @@ import configs from '../../app/configs/index';
 
 const config = configs.services.api.search;
 
-export default (query, page) => {
+export const search = (query, page) => {
 	const criteria = isQueryGpsLocation(query) ? config.criteriaTypes.GPS : config.criteriaTypes.PLACE;
 	return new Promise(async (resolve, reject) => {
 		try {

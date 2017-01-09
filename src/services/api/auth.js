@@ -2,7 +2,7 @@ import configs from '../../app/configs/index';
 
 const config = configs.services.api.auth;
 
-export default (nick, pwd) => {
+export const login = (nick, pwd) => {
 	return new Promise((resolve, reject) => {
 		//TODO: remove this code when auth API is accessible
 		setTimeout(() => {

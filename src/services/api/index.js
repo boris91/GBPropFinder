@@ -1,7 +1,7 @@
-import auth from './auth';
-import search from './search';
+import * as auth from './auth';
+import * as search from './search';
 
 export default {
-	auth,
-	search
+	...auth,
+	...search
 };

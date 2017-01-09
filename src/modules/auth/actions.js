@@ -21,7 +21,7 @@ export const sendAuthRequest = (onSuccess, onError) => async (dispatch, getState
 	});
 	const { nick, pwd } = getState().auth;
 	try {
-		await Api.auth(nick, pwd);
+		await Api.login(nick, pwd);
 		dispatch(receiveAuthSuccess());
 		onSuccess();
 	} catch(exc) {

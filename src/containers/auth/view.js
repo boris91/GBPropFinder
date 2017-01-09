@@ -50,30 +50,14 @@ export default class Auth extends Base {
 	}
 
 	onNickChange(event) {
-		this.runAction(this.types.SET_AUTH_NICK, event.nativeEvent.text);
+		this.setAuthNick(event.nativeEvent.text);
 	}
 
 	onPwdChange(event) {
-		this.runAction(this.types.SET_AUTH_PWD, event.nativeEvent.text);
+		this.setAuthPwd(event.nativeEvent.text);
 	}
 
-	async onOkPress() {
-		const { nick, pwd } = this.data.auth;
-		try {
-			await this.runAction(this.types.SEND_AUTH_REQUEST, nick, pwd);
-			this.onAuthSuccess();
-		} catch (exc) {
-			this.onAuthError();
-		}
-	}
-
-	onAuthSuccess() {
-		this.runAction(this.types.RECEIVE_AUTH_SUCCESS);
-		this.props.onSuccess();
-	}
-
-	onAuthError() {
-		this.runAction(this.types.RECEIVE_AUTH_ERROR);
-		this.props.onError();
+	onOkPress() {
+		this.sendAuthRequest(this.props.onSuccess, this.props.onError);
 	}
 };

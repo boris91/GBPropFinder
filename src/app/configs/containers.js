@@ -32,7 +32,6 @@ export const searchResultDetails = null;
 export const searchResults = {
 	defaultProps: {
 		dataSrcAttrs: { rowHasChanged: (r1, r2) => r1.id !== r2.id },
-		noResultsMessage: 'No results found for your query.',
-		requestFailMessage: 'Reqeust failed. Try again later.'
+		noResultsMessage: 'No results found for your query.'
 	}
 };

@@ -28,8 +28,8 @@ class Navi extends React.Component {
 	}
 
 	renderScene(route, navigator) {
-		const { auth, storeState, actions, actionTypes } = this.props;
-		const sceneProps = { navigator, storeState, actions, actionTypes };
+		const { auth, storeState, actions } = this.props;
+		const sceneProps = { navigator, storeState, actions };
 
 		return (!route.secure || storeState.auth.complete) ? (
 			<route.component {...route.passProps} {...sceneProps}/>
@@ -64,7 +64,6 @@ export default connect(
 		storeState: state
 	}),
 	dispatch => ({
-		actions: bindActionCreators(actions, dispatch),
-		actionTypes: types
+		actions: bindActionCreators(actions, dispatch)
 	})
 )(Navi);

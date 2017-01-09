@@ -41,12 +41,12 @@ export default class Search extends Base {
 
 	onSearchByGps(coords) {
 		const { latitude, longitude } = coords;
-		this.runAction(this.types.SET_SEARCH_QUERY, `${latitude},${longitude}`);
+		this.setSearchQuery(`${latitude},${longitude}`);
 		this.navTo('search-results');
 	}
 
 	onQueryChange(event) {
-		this.runAction(this.types.SET_SEARCH_QUERY, event.nativeEvent.text);
+		this.setSearchQuery(event.nativeEvent.text);
 	}
 
 	onMapPress(event) {

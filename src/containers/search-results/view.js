@@ -21,7 +21,7 @@ export default class SearchResults extends Base {
 	}
 
 	componentWillUnmount() {
-		this.runAction(this.types.RESET_SEARCH_TEMP_DATA);
+		this.resetSearchTempData();
 	}
 
 	render() {
@@ -83,37 +83,8 @@ export default class SearchResults extends Base {
 		);
 	}
 
-	async sendSearchRequest(page) {
-		const { query, results } = this.data.search;
-		const resultsByQuery = results[query];
-		const propsList = resultsByQuery && resultsByQuery[page];
-
-		if (propsList) {
-			this.onSearchRequestSucceed({
-				page,
-				pagesCount: resultsByQuery.pagesCount,
-				results: propsList
-			});
-		} else {
-			try {
-				const data = await this.runAction(this.types.SEND_SEARCH_REQUEST, query, page);
-				this.onSearchRequestSucceed(data);
-			} catch (exc) {
-				this.onSearchRequestFailed();
-			}
-		}
-	}
-
-	onSearchRequestSucceed(data) {
-		this.runAction(this.types.RECEIVE_SEARCH_SUCCESS, data);
-	}
-
-	onSearchRequestFailed() {
-		this.runAction(this.types.RECEIVE_SEARCH_ERROR, this.props.requestFailMessage);
-	}
-
 	onRowPress(resultId) {
-		this.runAction(this.types.SELECT_SEARCH_RESULT, resultId);
+		this.selectSearchResult(resultId);
 		this.navTo('search-result-details');
 	}
 

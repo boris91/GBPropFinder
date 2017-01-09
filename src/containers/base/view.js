@@ -7,11 +7,15 @@ import * as components from '../../components/index';
 export default class Base extends React.Component {
 	static config = config.containers;
 	static components = components;
-	get types() { return this.props.actionTypes; }
+	static actionsAssignedToBaseProto = false;
 	get data() { return this.props.storeState; }
 
-	runAction(actionName, ...args) {
-		return this.props.actions[actionName](...args);
+	constructor(props) {
+		super(props);
+		if (!Base.actionsAssignedToBaseProto) {
+			Object.assign(Base.prototype, props.actions);
+			Base.actionsAssignedToBaseProto = true;
+		}
 	}
 
 	navBack() {

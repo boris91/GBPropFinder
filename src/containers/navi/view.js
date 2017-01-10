@@ -1,15 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import types from '../../app/types';
 import actions from '../../app/actions';
 import { Btn, Nav, Navbar, Txt } from '../../components/index';
 import * as _ from './styles';
 
-class Navi extends React.Component {
+export default class Navi extends React.Component {
 	constructor(props) {
 		super(props);
+
+		const { store } = this.props;
+		this.actions = bindActionCreators(actions, store.dispatch.bind(store));
+		store.subscribe(this.onStoreChange.bind(this));
+
 		this.renderScene = this.renderScene.bind(this);
 		this.navbarRouteMapper = {
 			Title: this.renderNavbarTitle.bind(this),
@@ -28,8 +31,9 @@ class Navi extends React.Component {
 	}
 
 	renderScene(route, navigator) {
-		const { auth, storeState, actions } = this.props;
-		const sceneProps = { navigator, storeState, actions };
+		const { auth, store } = this.props;
+		const storeState = store.getState();
+		const sceneProps = { navigator, storeState, actions: this.actions };
 
 		return (!route.secure || storeState.auth.complete) ? (
 			<route.component {...route.passProps} {...sceneProps}/>
@@ -57,13 +61,8 @@ class Navi extends React.Component {
 	renderNavbarRightButton(route, navigator, index, navState) {
 		return null;
 	}
-};
 
-export default connect(
-	state => ({
-		storeState: state
-	}),
-	dispatch => ({
-		actions: bindActionCreators(actions, dispatch)
-	})
-)(Navi);
+	onStoreChange() {
+		this.forceUpdate();
+	}
+};

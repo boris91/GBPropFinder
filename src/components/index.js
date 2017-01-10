@@ -7,7 +7,6 @@ import {
 	View
 } from 'react-native';
 import Map from 'react-native-maps';
-import { Provider } from 'react-redux';
 
 import Btn from './btn/view';
 import Fld from './fld/view';
@@ -27,7 +26,6 @@ export {
 	Navigator as Nav,
 	Navbar,
 	Pager,
-	Provider,
 	Pwd,
 	Text as Txt,
 	TouchableHighlight as Touch,

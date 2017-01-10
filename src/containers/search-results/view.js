@@ -20,10 +20,6 @@ export default class SearchResults extends Base {
 		this.sendSearchRequest(1);
 	}
 
-	componentWillUnmount() {
-		this.resetSearchTempData();
-	}
-
 	render() {
 		const { noResultsMessage } = this.props;
 		const { query, pending, error, errorMessage, results, page } = this.data.search;

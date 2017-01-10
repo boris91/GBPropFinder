@@ -13,12 +13,24 @@ export default class Navi extends React.Component {
 		this.actions = bindActionCreators(actions, store.dispatch.bind(store));
 		store.subscribe(this.onStoreChange.bind(this));
 
+		this.updating = false;
+		this.nextUpdUpcoming = false;
+		this.updPromise = null;
+		this.updResolve = null;
+
 		this.renderScene = this.renderScene.bind(this);
 		this.navbarRouteMapper = {
 			Title: this.renderNavbarTitle.bind(this),
 			LeftButton: this.renderNavbarLeftButton.bind(this),
 			RightButton: this.renderNavbarRightButton.bind(this)
 		};
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		this.updating = false;
+		if (this.updResolve) {
+			this.updResolve();
+		}
 	}
 
 	render() {
@@ -62,7 +74,20 @@ export default class Navi extends React.Component {
 		return null;
 	}
 
-	onStoreChange() {
+	update() {
+		this.updating = true;
+		this.updPromise = new Promise(res => this.updResolve = res);
 		this.forceUpdate();
+	}
+
+	async onStoreChange() {
+		if (!this.updating) {
+			this.update();
+		} else if (!this.nextUpdUpcoming) {
+			this.nextUpdUpcoming = true;
+			await this.updPromise;
+			this.nextUpdUpcoming = false;
+			this.update();
+		}
 	}
 };

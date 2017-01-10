@@ -9,14 +9,6 @@ export default (state = initialState, action) => {
 				query: action.query
 			};
 
-		case types.RESET_SEARCH_TEMP_DATA:
-			return {
-				...state,
-				error: initialState.error,
-				errorMessage: initialState.errorMessage,
-				page: initialState.page
-			};
-
 		case types.SELECT_SEARCH_RESULT:
 			return {
 				...state,

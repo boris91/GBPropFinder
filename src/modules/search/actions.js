@@ -8,12 +8,6 @@ export const setSearchQuery = query => dispatch => {
 	});
 };
 
-export const resetSearchTempData = () => dispatch => {
-	dispatch({
-		type: types.RESET_SEARCH_TEMP_DATA
-	});
-};
-
 export const selectSearchResult = selectedResultId => dispatch => {
 	dispatch({
 		type: types.SELECT_SEARCH_RESULT,

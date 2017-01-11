@@ -8,7 +8,7 @@ export default class Base extends React.Component {
 	static config = config.containers;
 	static components = components;
 	static actionsAssignedToBaseProto = false;
-	get data() { return this.props.storeState; }
+	get data() { return this.props.store.getState(); }
 
 	constructor(props) {
 		super(props);

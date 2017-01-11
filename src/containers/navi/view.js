@@ -44,10 +44,9 @@ export default class Navi extends React.Component {
 
 	renderScene(route, navigator) {
 		const { auth, store } = this.props;
-		const storeState = store.getState();
-		const sceneProps = { navigator, storeState, actions: this.actions };
+		const sceneProps = { navigator, store, actions: this.actions };
 
-		return (!route.secure || storeState.auth.complete) ? (
+		return (!route.secure || store.getState().auth.complete) ? (
 			<route.component {...route.passProps} {...sceneProps}/>
 		) : (
 			<auth.component {...sceneProps}/>

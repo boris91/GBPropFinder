@@ -27,34 +27,34 @@ export const separator = {
 	backgroundColor: '#6d6d6d'
 };
 
-export const result = {
-	flexDirection: 'row',
-	padding: 10
-};
-
-export const resultThumb = {
-	width: 80,
-	height: 80,
-	marginRight: 10
-};
-
-export const resultText = {
-	flex: 1
-};
-
-export const resultPrice = {
-	fontSize: 25,
-	fontWeight: 'bold',
-	color: '#eaae4e'
-};
-
-export const resultTitle = {
-	fontSize: 20,
-	color: '#b2b2b2'
-};
-
 export const message = {
 	color: '#eaab18',
 	fontSize: 20,
 	margin: 20
+};
+
+export const result = {
+	container: {
+		flexDirection: 'row',
+		padding: 10
+	},
+	thumb: {
+		width: 80,
+		height: 80,
+		marginRight: 10
+	},
+	text: {
+		container: {
+			flex: 1
+		},
+		price: {
+			fontSize: 25,
+			fontWeight: 'bold',
+			color: '#eaae4e'
+		},
+		title: {
+			fontSize: 20,
+			color: '#b2b2b2'
+		}
+	}
 };

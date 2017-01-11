@@ -41,8 +41,8 @@ export default class Auth extends Base {
 					<Btn style={_.button} disabled={!nick || !pwd} text={btnText} onPress={this.onOkPress}/>
 				</Div>
 				{error ? (
-					<Div style={_.errorContainer}>
-						<Txt style={_.error}>{errorMessage}</Txt>
+					<Div style={_.error.container}>
+						<Txt style={_.error.text}>{errorMessage}</Txt>
 					</Div>
 				) : null}
 			</Div>

@@ -13,9 +13,9 @@ export default class SearchResultDetails extends Base {
 		return (
 			<Div style={_.container}>
 				<Img style={_.photo} source={{ uri }}/>
-				<Div style={_.headInfo}>
-					<Txt style={_.price}>{price}</Txt>
-					<Txt style={_.title}>{title}</Txt>
+				<Div style={_.headInfo.container}>
+					<Txt style={_.headInfo.price}>{price}</Txt>
+					<Txt style={_.headInfo.title}>{title}</Txt>
 				</Div>
 				<Txt style={_.attrs}>{attrs}</Txt>
 				<Div style={_.separator}/>

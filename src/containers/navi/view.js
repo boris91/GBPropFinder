@@ -35,7 +35,7 @@ export default class Navi extends React.Component {
 
 	render() {
 		const { face } = this.props;
-		const navbar = <Navbar style={_.navbar} routeMapper={this.navbarRouteMapper}/>;
+		const navbar = <Navbar style={_.navbar.container} routeMapper={this.navbarRouteMapper}/>;
 
 		return (
 			<Nav style={_.navigator} initialRoute={face} renderScene={this.renderScene} navigationBar={navbar}/>
@@ -54,7 +54,7 @@ export default class Navi extends React.Component {
 	}
 
 	renderNavbarTitle(route, navigator, index, navState) {
-		return <Txt style={_.navbarTitle}>{route.title}</Txt>;
+		return <Txt style={_.navbar.title}>{route.title}</Txt>;
 	}
 
 	renderNavbarLeftButton(route, navigator, index, navState) {
@@ -63,7 +63,7 @@ export default class Navi extends React.Component {
 		} else {
 			const text = `< ${navState.routeStack[index - 1].title}`;
 			return (
-				<Btn style={_.navbarButton} text={text} underlayColor="transparent"
+				<Btn style={_.navbar.button} text={text} underlayColor="transparent"
 				     onPress={() => navigator.pop()}/>
 			);
 		}

@@ -66,11 +66,11 @@ export default class SearchResults extends Base {
 		return (
 			<Touch onPress={() => this.onRowPress(id)} underlayColor="#dddddd">
 				<Div>
-					<Div style={_.result}>
-						<Img style={_.resultThumb} source={{ uri }}/>
-						<Div style={_.resultText}>
-							<Txt style={_.resultPrice}>{price}</Txt>
-							<Txt style={_.resultTitle} numberOfLines={1}>{title}</Txt>
+					<Div style={_.result.container}>
+						<Img style={_.result.thumb} source={{ uri }}/>
+						<Div style={_.result.text.container}>
+							<Txt style={_.result.text.price}>{price}</Txt>
+							<Txt style={_.result.text.title} numberOfLines={1}>{title}</Txt>
 						</Div>
 					</Div>
 					<Div style={_.separator}/>

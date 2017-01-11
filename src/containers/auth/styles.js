@@ -50,15 +50,16 @@ export const spinner = {
 	alignSelf: 'center'
 };
 
-export const errorContainer = [row, {
-	backgroundColor: '#c88636',
-	borderRadius: 10
-}];
-
 export const error = {
-	padding: 10,
-	marginBottom: 10,
-	fontSize: 17,
-	textAlign: 'center',
-	color: '#f9df93'
+	container: [row, {
+		backgroundColor: '#c88636',
+		borderRadius: 10
+	}],
+	text: {
+		padding: 10,
+		marginBottom: 10,
+		fontSize: 17,
+		textAlign: 'center',
+		color: '#f9df93'
+	}
 };

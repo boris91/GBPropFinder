@@ -10,20 +10,20 @@ export const photo = {
 };
 
 export const headInfo = {
-	backgroundColor: '#5b5b5b'
-};
-
-export const title = {
-	fontSize: 22,
-	margin: 5,
-	color: '#eaae4e'
-};
-
-export const price = {
-	fontSize: 25,
-	fontWeight: 'bold',
-	margin: 5,
-	color: '#6ad9ec'
+	container: {
+		backgroundColor: '#5b5b5b'
+	},
+	price: {
+		fontSize: 25,
+		fontWeight: 'bold',
+		margin: 5,
+		color: '#6ad9ec'
+	},
+	title: {
+		fontSize: 22,
+		margin: 5,
+		color: '#eaae4e'
+	}
 };
 
 export const attrs = {

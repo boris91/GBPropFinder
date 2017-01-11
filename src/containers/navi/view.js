@@ -1,7 +1,5 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 
-import actions from '../../app/actions';
 import { Btn, Nav, Navbar, Txt } from '../../components/index';
 import * as _ from './styles';
 
@@ -9,9 +7,7 @@ export default class Navi extends React.Component {
 	constructor(props) {
 		super(props);
 
-		const { store } = this.props;
-		this.actions = bindActionCreators(actions, store.dispatch.bind(store));
-		store.subscribe(this.onStoreChange.bind(this));
+		this.props.store.subscribe(this.onStoreChange.bind(this));
 
 		this.updating = false;
 		this.nextUpdUpcoming = false;
@@ -43,8 +39,8 @@ export default class Navi extends React.Component {
 	}
 
 	renderScene(route, navigator) {
-		const { auth, store } = this.props;
-		const sceneProps = { navigator, store, actions: this.actions };
+		const { auth, store, actions } = this.props;
+		const sceneProps = { navigator, store, actions };
 
 		return (!route.secure || store.getState().auth.complete) ? (
 			<route.component {...route.passProps} {...sceneProps}/>

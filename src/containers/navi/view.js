@@ -22,6 +22,10 @@ export default class Navi extends React.Component {
 		};
 	}
 
+	isRouteAccessible(route) {
+		return !route.secure || this.props.store.getState().auth.complete;
+	}
+
 	componentDidUpdate(prevProps, prevState) {
 		this.updating = false;
 		if (this.updResolve) {
@@ -42,7 +46,7 @@ export default class Navi extends React.Component {
 		const { auth, store, actions } = this.props;
 		const sceneProps = { navigator, store, actions };
 
-		return (!route.secure || store.getState().auth.complete) ? (
+		return this.isRouteAccessible(route) ? (
 			<route.component {...route.passProps} {...sceneProps}/>
 		) : (
 			<auth.component {...sceneProps}/>
@@ -50,7 +54,11 @@ export default class Navi extends React.Component {
 	}
 
 	renderNavbarTitle(route, navigator, index, navState) {
-		return <Txt style={_.navbar.title}>{route.title}</Txt>;
+		return (
+			<Txt style={_.navbar.title}>
+				{this.isRouteAccessible(route) ? route.title : this.props.auth.title}
+			</Txt>
+		);
 	}
 
 	renderNavbarLeftButton(route, navigator, index, navState) {

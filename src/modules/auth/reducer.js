@@ -15,6 +15,12 @@ export default (state = initialState, action) => {
 				pwd: action.pwd
 			};
 
+		case types.SET_AUTH_SAVE_CREDS:
+			return {
+				...state,
+				saveCreds: action.saveCreds
+			};
+
 		case types.SEND_AUTH_REQUEST:
 			return {
 				...state,

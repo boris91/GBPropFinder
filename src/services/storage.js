@@ -5,8 +5,13 @@ import configs from '../app/configs/index';
 const config = configs.services.storage;
 
 export default class Storage {
-	static get keys() {
-		return AsyncStorage.getAllKeys();
+	static async getItems() {
+		const keys = (await AsyncStorage.getAllKeys()).filter(key => key.startsWith(config.preKey));
+		const values = (await Promise.all(keys.map(key => AsyncStorage.getItem(key))));
+		return values.reduce((items, value, i) => {
+			items[keys[i]] = unstringify(value);
+			return items;
+		}, {});
 	}
 
 	static get(key) {
@@ -49,12 +54,9 @@ export default class Storage {
 		return AsyncStorage.removeItem(config.preKey + key);
 	}
 
-	static removeFew(...kvPairs) {
-		kvPairs.forEach(pair => {
-			pair[0] = config.preKey + pair[0];
-			pair[1] = stringify(pair[1]);
-		});
-		return AsyncStorage.multiRemove(kvPairs);
+	static removeFew(...keys) {
+		keys = keys.map(key => config.preKey + key);
+		return AsyncStorage.multiRemove(keys);
 	}
 
 	static merge(key, value) {

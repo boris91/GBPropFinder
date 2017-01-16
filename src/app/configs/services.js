@@ -12,8 +12,7 @@ export const storage = {
 export const api = {
 	auth: {
 		nick: 'admin',
-		pwd: 'admin',
-		storageCredsKey: 'auth-creds'
+		pwd: 'admin'
 	},
 	search: {
 		criteriaTypes: {

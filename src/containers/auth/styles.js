@@ -45,6 +45,16 @@ export const button = {
 	borderColor: '#323232'
 };
 
+export const check = {
+	text: {
+		marginBottom: 10,
+		fontSize: 18,
+		textAlign: 'center',
+		color: '#939393'
+	},
+	box: {}
+};
+
 export const spinner = {
 	flex: 1,
 	alignSelf: 'center'

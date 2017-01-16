@@ -2,6 +2,7 @@ import {
 	ActivityIndicator,
 	Image,
 	Navigator,
+	Switch,
 	Text,
 	TouchableHighlight,
 	View
@@ -27,6 +28,7 @@ export {
 	Navbar,
 	Pager,
 	Pwd,
+	Switch as Check,
 	Text as Txt,
 	TouchableHighlight as Touch,
 	View as Div

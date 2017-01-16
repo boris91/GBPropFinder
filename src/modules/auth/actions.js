@@ -15,6 +15,13 @@ export const setAuthPwd = pwd => dispatch => {
 	});
 };
 
+export const setAuthSaveCreds = saveCreds => dispatch => {
+	dispatch({
+		type: types.SET_AUTH_SAVE_CREDS,
+		saveCreds
+	});
+};
+
 export const sendAuthRequest = (onSuccess, onError) => async (dispatch, getState) => {
 	dispatch({
 		type: types.SEND_AUTH_REQUEST

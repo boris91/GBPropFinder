@@ -4,6 +4,7 @@ export const auth = {
 		nickHolder: 'Nickname',
 		pwdHolder: 'Password',
 		btnText: 'Sign in',
+		checkText: 'Remember me',
 		errorMessage: 'Auth failed: check your nickname & password for validity.',
 		onSuccess() {},
 		onError() {}

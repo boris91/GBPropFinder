@@ -18,10 +18,13 @@ export default class Auth extends Base {
 	}
 
 	async componentDidMount() {
-		try {
-			await this.loginSilently();
-			this.props.onSuccess();
-		} catch (exc) {}
+		const { pending, complete } = this.data.auth;
+		if (!complete && !pending) {
+			try {
+				await this.loginSilently();
+				this.props.onSuccess();
+			} catch (exc) {}
+		}
 	}
 
 	render() {

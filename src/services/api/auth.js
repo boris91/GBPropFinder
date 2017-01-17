@@ -10,7 +10,7 @@ export const loginSilently = () => {
 			if (creds) {
 				try {
 					await login(creds.nick, creds.pwd, true);
-					resolve({...creds, saveCreds: true});
+					resolve(creds);
 				} catch (exc) {
 					reject();
 				}

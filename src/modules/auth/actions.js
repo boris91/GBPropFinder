@@ -52,18 +52,17 @@ export const loginSilently = () => async (dispatch, getState) => {
 		type: types.LOGIN_SILENTLY
 	});
 	try {
-		const { nick, pwd, saveCreds } = await Api.loginSilently();
-		dispatch(loginSilentlySuccess(nick, pwd, saveCreds));
+		const { nick, pwd } = await Api.loginSilently();
+		dispatch(loginSilentlySuccess(nick, pwd));
 	} catch (exc) {
 		dispatch(loginSilentlyError());
 	}
 };
 
-const loginSilentlySuccess = (nick, pwd, saveCreds) => ({
+const loginSilentlySuccess = (nick, pwd) => ({
 	type: types.LOGIN_SILENTLY_SUCCESS,
 	nick,
-	pwd,
-	saveCreds
+	pwd
 });
 
 const loginSilentlyError = () => ({

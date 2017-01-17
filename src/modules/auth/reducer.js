@@ -58,7 +58,7 @@ export default (state = initialState, action) => {
 				pending: false,
 				nick: action.nick,
 				pwd: action.pwd,
-				saveCreds: action.saveCreds
+				saveCreds: true
 			};
 
 		case types.LOGIN_SILENTLY_ERROR:

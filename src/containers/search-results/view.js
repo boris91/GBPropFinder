@@ -17,7 +17,7 @@ export default class SearchResults extends Base {
 	}
 
 	componentDidMount() {
-		this.sendSearchRequest(1);
+		this.search(1);
 	}
 
 	render() {
@@ -86,11 +86,11 @@ export default class SearchResults extends Base {
 
 	onPagerPrevPress() {
 		const { page } = this.data.search;
-		this.sendSearchRequest(page - 1);
+		this.search(page - 1);
 	}
 
 	onPagerNextPress() {
 		const { page } = this.data.search;
-		this.sendSearchRequest(page + 1);
+		this.search(page + 1);
 	}
 };

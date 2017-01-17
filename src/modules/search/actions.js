@@ -15,9 +15,9 @@ export const selectSearchResult = selectedResultId => dispatch => {
 	});
 };
 
-export const sendSearchRequest = page => async (dispatch, getState) => {
+export const search = page => async (dispatch, getState) => {
 	dispatch({
-		type: types.SEND_SEARCH_REQUEST,
+		type: types.SEARCH,
 		page
 	});
 
@@ -26,26 +26,26 @@ export const sendSearchRequest = page => async (dispatch, getState) => {
 	const resultsList = resultsByQuery && resultsByQuery[page];
 
 	if (resultsList) {
-		dispatch(receiveSearchSuccess(page, resultsByQuery.pagesCount, resultsList));
+		dispatch(searchSuccess(page, resultsByQuery.pagesCount, resultsList));
 	} else {
 		try {
 			const response = await Api.search(query, page);
-			dispatch(receiveSearchSuccess(page, response.pagesCount, response.results));
+			dispatch(searchSuccess(page, response.pagesCount, response.results));
 		} catch (exc) {
-			dispatch(receiveSearchError());
+			dispatch(searchError());
 		}
 	}
 
 };
 
-const receiveSearchSuccess = (page, pagesCount, results) => ({
-	type: types.RECEIVE_SEARCH_SUCCESS,
+const searchSuccess = (page, pagesCount, results) => ({
+	type: types.SEARCH_SUCCESS,
 	page,
 	pagesCount,
 	results
 });
 
-const receiveSearchError = () => ({
-	type: types.RECEIVE_SEARCH_ERROR,
+const searchError = () => ({
+	type: types.SEARCH_ERROR,
 	errorMessage: 'Reqeust failed. Try again later.'
 });

@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
 				selectedResultId: action.selectedResultId
 			};
 
-		case types.SEND_SEARCH_REQUEST:
+		case types.SEARCH:
 			return {
 				...state,
 				page: action.page,
@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
 				selectedResultId: ''
 			};
 
-		case types.RECEIVE_SEARCH_SUCCESS:
+		case types.SEARCH_SUCCESS:
 			const { page, pagesCount, results } = action;
 			return {
 				...state,
@@ -41,7 +41,7 @@ export default (state = initialState, action) => {
 				}
 			};
 
-		case types.RECEIVE_SEARCH_ERROR:
+		case types.SEARCH_ERROR:
 			return {
 				...state,
 				pending: false,

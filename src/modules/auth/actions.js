@@ -22,25 +22,50 @@ export const setAuthSaveCreds = saveCreds => dispatch => {
 	});
 };
 
-export const sendAuthRequest = (onSuccess, onError) => async (dispatch, getState) => {
-	dispatch({
-		type: types.SEND_AUTH_REQUEST
+export const login = () => (dispatch, getState) => {
+	return new Promise(async (resolve, reject) => {
+		dispatch({
+			type: types.LOGIN
+		});
+		const { nick, pwd, saveCreds } = getState().auth;
+		try {
+			await Api.login(nick, pwd, saveCreds);
+			dispatch(loginSuccess());
+			resolve();
+		} catch (exc) {
+			dispatch(loginError());
+			reject();
+		}
 	});
-	const { nick, pwd } = getState().auth;
+};
+
+const loginSuccess = () => ({
+	type: types.LOGIN_SUCCESS
+});
+
+const loginError = () => ({
+	type: types.LOGIN_ERROR
+});
+
+export const loginSilently = () => async (dispatch, getState) => {
+	dispatch({
+		type: types.LOGIN_SILENTLY
+	});
 	try {
-		await Api.login(nick, pwd);
-		dispatch(receiveAuthSuccess());
-		onSuccess();
-	} catch(exc) {
-		dispatch(receiveAuthError());
-		onError();
+		const { nick, pwd, saveCreds } = await Api.loginSilently();
+		dispatch(loginSilentlySuccess(nick, pwd, saveCreds));
+	} catch (exc) {
+		dispatch(loginSilentlyError());
 	}
 };
 
-const receiveAuthSuccess = () => ({
-	type: types.RECEIVE_AUTH_SUCCESS
+const loginSilentlySuccess = (nick, pwd, saveCreds) => ({
+	type: types.LOGIN_SILENTLY_SUCCESS,
+	nick,
+	pwd,
+	saveCreds
 });
 
-const receiveAuthError = () => ({
-	type: types.RECEIVE_AUTH_ERROR
+const loginSilentlyError = () => ({
+	type: types.LOGIN_SILENTLY_ERROR
 });

@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
 				saveCreds: action.saveCreds
 			};
 
-		case types.SEND_AUTH_REQUEST:
+		case types.LOGIN:
 			return {
 				...state,
 				complete: false,
@@ -29,18 +29,42 @@ export default (state = initialState, action) => {
 				error: false
 			};
 
-		case types.RECEIVE_AUTH_SUCCESS:
+		case types.LOGIN_SUCCESS:
 			return {
 				...state,
 				complete: true,
 				pending: false
 			};
 
-		case types.RECEIVE_AUTH_ERROR:
+		case types.LOGIN_ERROR:
 			return {
 				...state,
 				pending: false,
 				error: true
+			};
+
+		case types.LOGIN_SILENTLY:
+			return {
+				...state,
+				complete: false,
+				pending: true,
+				error: false
+			};
+
+		case types.LOGIN_SILENTLY_SUCCESS:
+			return {
+				...state,
+				complete: true,
+				pending: false,
+				nick: action.nick,
+				pwd: action.pwd,
+				saveCreds: action.saveCreds
+			};
+
+		case types.LOGIN_SILENTLY_ERROR:
+			return {
+				...state,
+				pending: false
 			};
 
 		default:

@@ -17,25 +17,18 @@ export default class Auth extends Base {
 		this.onOkPress = this.onOkPress.bind(this);
 	}
 
-	/*componentWillMount() {
-		const { complete, items } = this.data.storage;
-		if (complete) {
-			if (items.authCreds) {
-				this.setAuthNick(items.authCreds.nick);
-				this.setAuthPwd(items.authCreds.pwd);
-				this.sendAuthRequest(this.props.onSuccess, this.props.onError);
-			}
-		} else {
-			this.sendStorageItemsRequest();
-		}
-	}*/
+	async componentDidMount() {
+		try {
+			await this.loginSilently();
+			this.props.onSuccess();
+		} catch (exc) {}
+	}
 
 	render() {
 		const { title, nickHolder, pwdHolder, btnText, checkText, errorMessage } = this.props;
 		const { pending, nick, pwd, saveCreds, error } = this.data.auth;
-		//const { complete } = this.data.storage;
 
-		if (pending/* || !complete*/) {
+		if (pending) {
 			return (
 				<Div style={_.container}>
 					<Spinner style={_.spinner} size="large" color="#909090"/>
@@ -52,12 +45,12 @@ export default class Auth extends Base {
 				<Div style={_.row}>
 					<Pwd style={_.field} placeholder={pwdHolder} value={pwd} onChange={this.onPwdChange}/>
 				</Div>
-				<Div style={_.row}>
-					<Btn style={_.button} disabled={!nick || !pwd} text={btnText} onPress={this.onOkPress}/>
-				</Div>
 				<Div sytle={_.row}>
 					<Txt style={_.check.text}>{checkText}</Txt>
 					<Check style={_.check.box} value={saveCreds} onValueChange={this.onCheckChange}/>
+				</Div>
+				<Div style={_.row}>
+					<Btn style={_.button} disabled={!nick || !pwd} text={btnText} onPress={this.onOkPress}/>
 				</Div>
 				{error ? (
 					<Div style={_.error.container}>
@@ -80,9 +73,12 @@ export default class Auth extends Base {
 		this.setAuthSaveCreds(value);
 	}
 
-	onOkPress() {
-		const { saveCreds, nick, pwd } = this.data.auth;
-		//this.setStorageItem('authCreds', saveCreds ? { nick, pwd } : null);
-		this.sendAuthRequest(this.props.onSuccess, this.props.onError);
+	async onOkPress() {
+		try {
+			await this.login();
+			this.props.onSuccess();
+		} catch (exc) {
+			this.props.onError();
+		}
 	}
 };

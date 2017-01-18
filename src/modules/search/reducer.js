@@ -21,7 +21,6 @@ export default (state = initialState, action) => {
 				page: action.page,
 				pending: true,
 				error: false,
-				errorMessage: '',
 				selectedResultId: ''
 			};
 
@@ -45,8 +44,7 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				pending: false,
-				error: true,
-				errorMessage: action.errorMessage
+				error: true
 			};
 
 		default:

@@ -21,8 +21,8 @@ export default class SearchResults extends Base {
 	}
 
 	render() {
-		const { noResultsMessage } = this.props;
-		const { query, pending, error, errorMessage, results, page } = this.data.search;
+		const { noResultsMessage, errorMessage } = this.props;
+		const { query, pending, error, results, page } = this.data.search;
 		const requestedResults = results[query] && results[query][page];
 		const pagesCount = results[query] && results[query].pagesCount || 1;
 		const loading = pending || !requestedResults;

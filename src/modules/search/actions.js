@@ -46,6 +46,5 @@ const searchSuccess = (page, pagesCount, results) => ({
 });
 
 const searchError = () => ({
-	type: types.SEARCH_ERROR,
-	errorMessage: 'Reqeust failed. Try again later.'
+	type: types.SEARCH_ERROR
 });

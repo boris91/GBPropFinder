@@ -39,8 +39,8 @@ export default class Search extends Base {
 		);
 	}
 
-	onSearchByGps(coords) {
-		const { latitude, longitude } = coords;
+	onSearchByGps(location) {
+		const { coords: { latitude, longitude } } = location;
 		this.setSearchQuery(`${latitude},${longitude}`);
 		this.navTo('search-results');
 	}
@@ -50,7 +50,7 @@ export default class Search extends Base {
 	}
 
 	onMapPress(event) {
-		this.onSearchByGps(event.nativeEvent.coordinate);
+		this.onSearchByGps({ coords: event.nativeEvent.coordinate });
 	}
 
 	onGoPress() {

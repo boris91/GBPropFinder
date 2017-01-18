@@ -79,8 +79,8 @@ export default class SearchResults extends Base {
 		);
 	}
 
-	onRowPress(resultId) {
-		this.selectSearchResult(resultId);
+	async onRowPress(resultId) {
+		await this.selectSearchResult(resultId);
 		this.navTo('search-result-details');
 	}
 

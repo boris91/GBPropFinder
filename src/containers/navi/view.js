@@ -7,17 +7,15 @@ export default class Navi extends React.Component {
 	constructor(props) {
 		super(props);
 
-		const { store, actions } = this.props;
-		store.subscribe(this.onStoreChange.bind(this));
-		this.boundActions = Object.keys(actions).reduce((boundActions, actionName) => {
-			boundActions[actionName] = actions[actionName].bind(store);
+		this.props.store.subscribe(this.forceUpdate.bind(this));
+		this.boundActions = Object.keys(this.props.actions).reduce((boundActions, actionName) => {
+			boundActions[actionName] = this.runAction.bind(this, actionName);
 			return boundActions;
 		}, {});
 
-		this.updating = false;
-		this.nextUpdUpcoming = false;
-		this.updPromise = null;
-		this.updResolve = null;
+		this.actionRunning = false;
+		this.actionPromise = Promise.resolve();
+		this.actionResolve = null;
 
 		this.renderScene = this.renderScene.bind(this);
 		this.navbarRouteMapper = {
@@ -32,9 +30,10 @@ export default class Navi extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		this.updating = false;
-		if (this.updResolve) {
-			this.updResolve();
+		this.actionRunning = false;
+		if (this.actionResolve) {
+			this.actionResolve();
+			this.actionResolve = null;
 		}
 	}
 
@@ -82,20 +81,12 @@ export default class Navi extends React.Component {
 		return null;
 	}
 
-	update() {
-		this.updating = true;
-		this.updPromise = new Promise(res => this.updResolve = res);
-		this.forceUpdate();
-	}
-
-	async onStoreChange() {
-		if (!this.updating) {
-			this.update();
-		} else if (!this.nextUpdUpcoming) {
-			this.nextUpdUpcoming = true;
-			await this.updPromise;
-			this.nextUpdUpcoming = false;
-			this.update();
-		}
+	async runAction(actionName, ...args) {
+		await this.actionPromise;
+		return this.actionPromise = new Promise((resolve, reject) => {
+			this.actionRunning = true;
+			this.actionResolve = resolve;
+			this.props.actions[actionName].apply(this.props.store, args);
+		});
 	}
 };

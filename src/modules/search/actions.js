@@ -1,38 +1,38 @@
 import types from './types';
 import { Api } from '../../services/index';
 
-export const setSearchQuery = query => dispatch => {
-	dispatch({
+export const setSearchQuery = function(query) {
+	this.dispatch({
 		type: types.SET_SEARCH_QUERY,
 		query
 	});
 };
 
-export const selectSearchResult = selectedResultId => dispatch => {
-	dispatch({
+export const selectSearchResult = function(selectedResultId) {
+	this.dispatch({
 		type: types.SELECT_SEARCH_RESULT,
 		selectedResultId
 	});
 };
 
-export const search = page => async (dispatch, getState) => {
-	dispatch({
+export const search = async function(page) {
+	this.dispatch({
 		type: types.SEARCH,
 		page
 	});
 
-	const { query, results } = getState().search;
+	const { query, results } = this.getState().search;
 	const resultsByQuery = results[query];
 	const resultsList = resultsByQuery && resultsByQuery[page];
 
 	if (resultsList) {
-		dispatch(searchSuccess(page, resultsByQuery.pagesCount, resultsList));
+		this.dispatch(searchSuccess(page, resultsByQuery.pagesCount, resultsList));
 	} else {
 		try {
 			const response = await Api.search(query, page);
-			dispatch(searchSuccess(page, response.pagesCount, response.results));
+			this.dispatch(searchSuccess(page, response.pagesCount, response.results));
 		} catch (exc) {
-			dispatch(searchError());
+			this.dispatch(searchError());
 		}
 	}
 

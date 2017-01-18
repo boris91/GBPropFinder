@@ -1,7 +1,6 @@
-import * as auth from '../modules/auth/actions';
-import * as search from '../modules/search/actions';
+import modules from '../modules/index';
 
-export default {
-	...auth,
-	...search,
-};
+export default Object.keys(modules).reduce((actions, moduleName) => ({
+	...actions,
+	...modules[moduleName].actions
+}), {});

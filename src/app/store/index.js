@@ -1,7 +1,15 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
-import reducers from './reducers';
-import preloadedState from './initial-state';
+import modules from '../../modules/index';
 import middleware from './middleware';
 
-export default createStore(reducers, preloadedState, middleware);
+const reducers = {};
+const preloadedState = {};
+
+Object.keys(modules).forEach(moduleName => {
+	const module = modules[moduleName];
+	reducers[moduleName] = module.reducer;
+	preloadedState[moduleName] = module.initialState;
+});
+
+export default createStore(combineReducers(reducers), preloadedState, middleware);

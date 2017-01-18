@@ -7,7 +7,12 @@ export default class Navi extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.props.store.subscribe(this.onStoreChange.bind(this));
+		const { store, actions } = this.props;
+		store.subscribe(this.onStoreChange.bind(this));
+		this.boundActions = Object.keys(actions).reduce((boundActions, actionName) => {
+			boundActions[actionName] = actions[actionName].bind(store);
+			return boundActions;
+		}, {});
 
 		this.updating = false;
 		this.nextUpdUpcoming = false;
@@ -43,8 +48,8 @@ export default class Navi extends React.Component {
 	}
 
 	renderScene(route, navigator) {
-		const { auth, store, actions } = this.props;
-		const sceneProps = { navigator, store, actions };
+		const { auth, store } = this.props;
+		const sceneProps = { navigator, store, actions: this.boundActions };
 
 		return this.isRouteAccessible(route) ? (
 			<route.component {...route.passProps} {...sceneProps}/>

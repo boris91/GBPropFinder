@@ -8,10 +8,14 @@ export default class Navi extends React.Component {
 		super(props);
 
 		this.props.store.subscribe(this.forceUpdate.bind(this));
-		this.boundActions = Object.keys(this.props.actions).reduce((boundActions, actionName) => {
-			boundActions[actionName] = this.runAction.bind(this, actionName);
-			return boundActions;
-		}, {});
+		const boundActions = Object.keys(this.props.actions).reduce((actions, actionName) => {
+			actions[actionName] = this.runAction.bind(this, actionName);
+			return actions;
+		}, {
+			navTo: this.navTo.bind(this),
+			navBack: this.navBack.bind(this)
+		});
+		this.props.routes.forEach(route => Object.assign(route.component.prototype, boundActions));
 
 		this.actionRunning = false;
 		this.actionPromise = Promise.resolve();
@@ -23,10 +27,6 @@ export default class Navi extends React.Component {
 			LeftButton: this.renderNavbarLeftButton.bind(this),
 			RightButton: this.renderNavbarRightButton.bind(this)
 		};
-	}
-
-	isRouteAccessible(route) {
-		return !route.secure || this.props.store.getState().auth.complete;
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -47,13 +47,11 @@ export default class Navi extends React.Component {
 	}
 
 	renderScene(route, navigator) {
-		const { auth, store } = this.props;
-		const sceneProps = { navigator, store, actions: this.boundActions };
-
-		return this.isRouteAccessible(route) ? (
-			<route.component {...route.passProps} {...sceneProps}/>
-		) : (
-			<auth.component {...sceneProps}/>
+		const { auth, store, configs } = this.props;
+		this.navigator = navigator;
+		const scene = this.isRouteAccessible(route) ? route : auth;
+		return (
+			<scene.component config={configs[scene.id]} data={store.getState()} {...scene.passProps}/>
 		);
 	}
 
@@ -71,14 +69,29 @@ export default class Navi extends React.Component {
 		} else {
 			const text = `< ${navState.routeStack[index - 1].title}`;
 			return (
-				<Btn style={_.navbar.button} text={text} underlayColor="transparent"
-				     onPress={() => navigator.pop()}/>
+				<Btn style={_.navbar.button} text={text} underlayColor="transparent" onPress={() => navigator.pop()}/>
 			);
 		}
 	}
 
 	renderNavbarRightButton(route, navigator, index, navState) {
 		return null;
+	}
+
+	isRouteAccessible(route) {
+		return !route.secure || this.props.store.getState().auth.complete;
+	}
+
+	navTo(routeId, passProps = null) {
+		const route = this.props.routes.find(route => route.id === routeId);
+		this.navigator.push({ ...route, passProps });
+	}
+
+	navBack() {
+		const { state: { presentedIndex, routeStack } } = this.navigator;
+		if (presentedIndex > routeStack.length - 1) {
+			this.navigator.jumpBack();
+		}
 	}
 
 	async runAction(actionName, ...args) {

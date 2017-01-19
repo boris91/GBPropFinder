@@ -1,12 +1,13 @@
 import React from 'react';
 
-import Base from '../base/view';
+import { Btn, Check, Div, Fld, Pwd, Spinner, Txt } from '../../components/index';
 import * as _ from './styles';
 
-const { Btn, Check, Div, Fld, Pwd, Spinner, Txt } = Base.components;
-
-export default class Auth extends Base {
-	static defaultProps = Base.config.auth.defaultProps;
+export default class Auth extends React.Component {
+	static defaultProps = {
+		onSuccess() {},
+		onError() {}
+	};
 
 	constructor(props) {
 		super(props);
@@ -18,7 +19,7 @@ export default class Auth extends Base {
 	}
 
 	async componentDidMount() {
-		const { pending, complete } = this.data.auth;
+		const { pending, complete } = this.props.data.auth;
 		if (!complete && !pending) {
 			try {
 				await this.loginSilently();
@@ -28,8 +29,12 @@ export default class Auth extends Base {
 	}
 
 	render() {
-		const { title, nickHolder, pwdHolder, btnText, checkText, errorMessage } = this.props;
-		const { pending, nick, pwd, saveCreds, error } = this.data.auth;
+		const {
+			config: { title, nickHolder, pwdHolder, btnText, checkText, errorMessage },
+			data: {
+				auth: { pending, nick, pwd, saveCreds, error }
+			}
+		} = this.props;
 
 		if (pending) {
 			return (

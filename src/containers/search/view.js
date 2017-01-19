@@ -1,13 +1,9 @@
 import React from 'react';
 
-import Base from '../base/view';
+import { Btn, Div, Fld, Img, Map, Txt } from '../../components/index';
 import * as _ from './styles';
 
-const { Btn, Div, Fld, Img, Map, Txt } = Base.components;
-
-export default class Search extends Base {
-	static defaultProps = Base.config.search.defaultProps;
-
+export default class Search extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -19,8 +15,12 @@ export default class Search extends Base {
 	}
 
 	render() {
-		const { title, mapInitialRegion, queryHolder, imageSrc } = this.props;
-		const { query, error } = this.data.search;
+		const {
+			config: { title, mapInitialRegion, queryHolder, imageSrc },
+			data: {
+				search: { query, error }
+			}
+		} = this.props;
 
 		return (
 			<Div style={_.container}>
@@ -39,9 +39,9 @@ export default class Search extends Base {
 		);
 	}
 
-	onSearchByGps(location) {
+	async onSearchByGps(location) {
 		const { coords: { latitude, longitude } } = location;
-		this.setSearchQuery(`${latitude},${longitude}`);
+		await this.setSearchQuery(`${latitude},${longitude}`);
 		this.navTo('search-results');
 	}
 

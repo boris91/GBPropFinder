@@ -1,13 +1,9 @@
 import React from 'react';
 
-import Base from '../base/view';
+import { Div, Img, List, Pager, Spinner, Txt, Touch } from '../../components/index';
 import * as _ from './styles';
 
-const { Div, Img, List, Pager, Spinner, Txt, Touch } = Base.components;
-
-export default class SearchResults extends Base {
-	static defaultProps = Base.config.searchResults.defaultProps;
-
+export default class SearchResults extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -21,8 +17,11 @@ export default class SearchResults extends Base {
 	}
 
 	render() {
-		const { noResultsMessage, errorMessage } = this.props;
-		const { query, pending, error, results, page } = this.data.search;
+		const {
+			config: { noResultsMessage, errorMessage },
+			data: { search: { query, pending, error, results, page } }
+		} = this.props;
+
 		const requestedResults = results[query] && results[query][page];
 		const pagesCount = results[query] && results[query].pagesCount || 1;
 		const loading = pending || !requestedResults;
@@ -85,12 +84,12 @@ export default class SearchResults extends Base {
 	}
 
 	onPagerPrevPress() {
-		const { page } = this.data.search;
+		const { page } = this.props.data.search;
 		this.search(page - 1);
 	}
 
 	onPagerNextPress() {
-		const { page } = this.data.search;
+		const { page } = this.props.data.search;
 		this.search(page + 1);
 	}
 };

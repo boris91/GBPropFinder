@@ -12,13 +12,7 @@ export default {
 		title: 'Search for property (by place name, post code or location).',
 		queryHolder: 'Place/postcode',
 		imageSrc: require('../images/house.png'),
-		noDataMessage: 'No data provided. Try again later.',
-		mapInitialRegion: {
-			latitude: 51.5074,
-			longitude: 0.1278,
-			latitudeDelta: 0,
-			longitudeDelta: 0
-		}
+		noDataMessage: 'No data provided. Try again later.'
 	},
 
 	'search-result-details': null,

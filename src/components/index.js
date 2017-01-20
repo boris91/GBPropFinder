@@ -7,11 +7,11 @@ import {
 	TouchableHighlight,
 	View
 } from 'react-native';
-import Map from 'react-native-maps';
 
 import Btn from './btn/view';
 import Fld from './fld/view';
 import List from './list/view';
+import Menu from './menu/view';
 import Pager from './pager/view';
 import Pwd from './pwd/view';
 
@@ -23,7 +23,7 @@ export {
 	Fld,
 	Image as Img,
 	List,
-	Map,
+	Menu,
 	Navigator as Nav,
 	Navbar,
 	Pager,

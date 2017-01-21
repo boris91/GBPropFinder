@@ -7,16 +7,8 @@ export const loginSilently = () => {
 	return new Promise(async (resolve, reject) => {
 		try {
 			const creds = await getCredsFromStorage();
-			if (creds) {
-				try {
-					await login(creds.nick, creds.pwd, true);
-					resolve(creds);
-				} catch (exc) {
-					reject();
-				}
-			} else {
-				reject();
-			}
+			await login(creds.nick, creds.pwd, true);
+			resolve(creds);
 		} catch (exc) {
 			reject();
 		}

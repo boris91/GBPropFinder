@@ -1,1 +1,1 @@
-import './src/app/index';
+import './src/client/app/index';

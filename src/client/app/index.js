@@ -11,6 +11,6 @@ const App = props => (
 	<Navi auth={auth} face={face} configs={configs.containers} routes={routes} store={store} actions={actions}/>
 );
 
-AppRegistry.registerComponent('mios', () => App);
+AppRegistry.registerComponent('GBPropFinder', () => App);
 
 export default App;

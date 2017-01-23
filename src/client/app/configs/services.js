@@ -3,7 +3,7 @@ export const xhr = {
 };
 
 export const storage = {
-	preKey: '@mios:',
+	preKey: '@GBPropFinder:',
 	preVal: {
 		object: '@object:'
 	}

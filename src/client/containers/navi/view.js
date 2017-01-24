@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Btn, Div, Menu, Nav, Navbar, Txt } from '../../components/index';
+import { Btn, Menu, Nav, Navbar, Txt } from '../../components/index';
 import * as _ from './styles';
 
 export default class Navi extends React.Component {
@@ -38,11 +38,13 @@ export default class Navi extends React.Component {
 	}
 
 	render() {
-		const { face } = this.props;
+		const { face, menuItems } = this.props;
 		const navbar = <Navbar style={_.navbar.container} routeMapper={this.navbarRouteMapper}/>;
 
 		return (
-			<Nav style={_.navigator} initialRoute={face} renderScene={this.renderScene} navigationBar={navbar}/>
+			<Menu items={menuItems}>
+				<Nav style={_.navigator} initialRoute={face} renderScene={this.renderScene} navigationBar={navbar}/>
+			</Menu>
 		);
 	}
 
@@ -51,10 +53,7 @@ export default class Navi extends React.Component {
 		this.navigator = navigator;
 		const scene = this.isRouteAccessible(route) ? route : auth;
 		return (
-			<Div style={_.navigator}>
-				<Menu navigator={navigator}/>
-				<scene.component config={configs[scene.id]} data={store.getState()} {...scene.passProps}/>
-			</Div>
+			<scene.component config={configs[scene.id]} data={store.getState()} {...scene.passProps}/>
 		);
 	}
 

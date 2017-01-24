@@ -8,7 +8,7 @@ import store from './store/index';
 import actions from './actions';
 
 const App = props => (
-	<Navi auth={auth} face={face} configs={configs.containers} routes={routes} store={store} actions={actions}/>
+	<Navi auth={auth} face={face} configs={configs.containers} routes={routes} store={store} actions={actions} menuItems={configs.menu}/>
 );
 
 AppRegistry.registerComponent('GBPropFinder', () => App);
